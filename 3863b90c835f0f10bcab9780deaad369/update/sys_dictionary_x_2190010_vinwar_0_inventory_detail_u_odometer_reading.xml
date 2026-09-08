@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_dictionary action="INSERT_OR_UPDATE" element="customer_name" table="x_2190010_vinwar_0_inventory">
+    <sys_dictionary action="INSERT_OR_UPDATE" element="u_odometer_reading" table="x_2190010_vinwar_0_inventory_detail">
         <active>true</active>
         <array>false</array>
-        <attributes/>
+        <attributes>import_attribute_name=Odometer Reading</attributes>
         <audit>false</audit>
         <calculation/>
-        <choice/>
+        <choice>0</choice>
         <choice_field/>
         <choice_table/>
-        <column_label>Customer Name</column_label>
+        <column_label>Odometer Reading</column_label>
         <comments/>
         <create_roles/>
         <default_value/>
@@ -21,22 +21,22 @@
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element>customer_name</element>
+        <element>u_odometer_reading</element>
         <element_reference>false</element_reference>
         <foreign_database/>
         <formula/>
         <function_definition/>
         <function_field>false</function_field>
-        <internal_type display_value="Reference">reference</internal_type>
+        <internal_type display_value="Integer">integer</internal_type>
         <mandatory>false</mandatory>
         <max_length>40</max_length>
-        <name>x_2190010_vinwar_0_inventory</name>
+        <name>x_2190010_vinwar_0_inventory_detail</name>
         <next_element/>
         <primary>false</primary>
         <read_only>false</read_only>
         <read_only_option/>
         <read_roles/>
-        <reference display_value="" name="x_2190010_vinwar_0_customer_details">x_2190010_vinwar_0_customer_details</reference>
+        <reference/>
         <reference_cascade_rule/>
         <reference_floats>false</reference_floats>
         <reference_key/>
@@ -47,14 +47,14 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-09-08 11:22:14</sys_created_on>
-        <sys_name>Customer Name</sys_name>
+        <sys_created_on>2026-09-08 17:36:36</sys_created_on>
+        <sys_name>Odometer Reading</sys_name>
         <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
         <sys_policy/>
         <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
-        <sys_update_name>sys_dictionary_x_2190010_vinwar_0_inventory_customer_name</sys_update_name>
+        <sys_update_name>sys_dictionary_x_2190010_vinwar_0_inventory_detail_u_odometer_reading</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-09-08 17:23:10</sys_updated_on>
+        <sys_updated_on>2026-09-08 17:36:36</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
