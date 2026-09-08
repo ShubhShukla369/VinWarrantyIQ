@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="95750bc4831b4f10bcab9780deaad38f" extends="task" label="Dealer" max_length="40" name="x_2190010_vinwar_0_dealer" type="collection">
+        <element label="Country" max_length="40" name="country" type="string"/>
+        <element label="Address Line 1" max_length="40" name="address_line_1" type="string"/>
+        <element label="Dealer Name" max_length="40" name="dealer_name" type="string"/>
+        <element label="Street" max_length="40" name="street" type="string"/>
+        <element label="Type" max_length="40" name="type" type="string"/>
+    </element>
+</database>

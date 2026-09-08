@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_documentation element="vin" label="VIN" language="en" table="x_2190010_vinwar_0_inventory">
+    <sys_documentation element="street" label="Street" language="en" table="x_2190010_vinwar_0_dealer">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>vin</element>
+            <element>street</element>
             <help/>
             <hint/>
-            <label>VIN</label>
+            <label>Street</label>
             <language>en</language>
-            <name>x_2190010_vinwar_0_inventory</name>
-            <plural/>
+            <name>x_2190010_vinwar_0_dealer</name>
+            <plural>Streets</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2026-09-08 11:22:15</sys_created_on>
-            <sys_mod_count>5</sys_mod_count>
-            <sys_name>VIN</sys_name>
+            <sys_created_on>2026-09-08 17:12:54</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Street</sys_name>
             <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
             <sys_policy/>
             <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
-            <sys_update_name>sys_documentation_x_2190010_vinwar_0_inventory_vin_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_2190010_vinwar_0_dealer_street_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2026-09-08 12:22:12</sys_updated_on>
+            <sys_updated_on>2026-09-08 17:12:54</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

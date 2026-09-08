@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="cb0e4f88835b4f10bcab9780deaad3de" extends="sys_import_set_row" label="inventory detail" max_length="40" name="x_2190010_vinwar_0_inventory_detail" type="collection">
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Dealer Name" label="Dealer Name" max_length="40" name="u_dealer_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Dealer Allocation ID" label="Dealer Allocation ID" max_length="40" name="u_dealer_allocation_id" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Title/Registration Status" label="Title/Registration Status" max_length="40" name="u_title_registration_status" type="string"/>
+        <element attributes="import_attribute_name=Model Year" label="Model Year" max_length="40" name="u_model_year" type="integer"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Status" label="Status" max_length="40" name="u_status" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Exterior/Interior Color" label="Exterior/Interior Color" max_length="40" name="u_exterior_interior_color" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Engine Type / Transmission" label="Engine Type / Transmission" max_length="40" name="u_engine_type___transmission" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Owner/Customer Name" label="Owner/Customer Name" max_length="40" name="u_owner_customer_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=VIN" label="VIN" max_length="40" name="u_vin" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Current Location" label="Current Location" max_length="40" name="u_current_location" type="string"/>
+        <element attributes="import_attribute_name=Odometer Reading" label="Odometer Reading" max_length="40" name="u_odometer_reading" type="integer"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=MSRP / Invoice Price" label="MSRP / Invoice Price" max_length="40" name="u_msrp___invoice_price" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Make / Model / Trim" label="Make / Model / Trim" max_length="40" name="u_make___model___trim" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Production Date &amp; Plant" label="Production Date &amp; Plant" max_length="40" name="u_production_date___plant" type="string"/>
+    </element>
+</database>

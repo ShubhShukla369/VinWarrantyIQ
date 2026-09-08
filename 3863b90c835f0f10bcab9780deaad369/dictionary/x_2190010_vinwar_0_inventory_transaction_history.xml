@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="2d190bcc831b4f10bcab9780deaad303" extends="task" label="Inventory Transaction History" max_length="40" name="x_2190010_vinwar_0_inventory_transaction_history" type="collection"/>
+</database>
