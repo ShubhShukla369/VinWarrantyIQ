@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="5ee18a148353cf10bcab9780deaad321" extends="sys_import_set_row" label="dealer details" max_length="40" name="x_2190010_vinwar_0_dealer_details" type="collection">
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Type" label="Type" max_length="40" name="u_type" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=State" label="State" max_length="40" name="u_state" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Zip Code" label="Zip Code" max_length="40" name="u_zip_code" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Name" label="Name" max_length="40" name="u_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Country" label="Country" max_length="40" name="u_country" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Address line 1" label="Address line 1" max_length="40" name="u_address_line_1" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Dealer Contact Number" label="Dealer Contact Number" max_length="40" name="u_dealer_contact_number" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Street" label="Street" max_length="40" name="u_street" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=City" label="City" max_length="40" name="u_city" type="string"/>
+    </element>
+</database>
