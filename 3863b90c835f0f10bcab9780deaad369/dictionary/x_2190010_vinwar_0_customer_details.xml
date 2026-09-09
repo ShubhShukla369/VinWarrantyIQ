@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="baa98f00835b4f10bcab9780deaad32d" extends="task" label="Customer Details" max_length="40" name="x_2190010_vinwar_0_customer_details" type="collection"/>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="baa98f00835b4f10bcab9780deaad32d" extends="task" label="Customer Details" max_length="40" name="x_2190010_vinwar_0_customer_details" type="collection">
+        <element label="Country" max_length="40" name="country" type="string"/>
+        <element label="Street" max_length="40" name="street" type="string"/>
+        <element label="Name" max_length="40" name="name" type="string"/>
+        <element label="County" max_length="40" name="county" type="string"/>
+        <element choice="1" label="Type" max_length="40" name="type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Customer" sequence="0" value="Customer"/>
+            </choice>
+        </element>
+        <element label="Mobile Number" max_length="40" name="mobile_number" type="integer"/>
+        <element label="city" max_length="40" name="city" type="string"/>
+        <element label="Address Line 1" max_length="255" name="address_line_1" type="string_full_utf8"/>
+        <element label="Zip Code" max_length="40" name="zip_code" type="integer"/>
+        <element label="Email" max_length="40" name="email" type="string"/>
+    </element>
 </database>
