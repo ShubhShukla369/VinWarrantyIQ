@@ -1,0 +1,2201 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function ($scope, $element, $http, $q, $filter, $window, $timeout) {
+
+    var c = this;
+
+    // =========================================================
+    // STEP CONFIGURATION
+    // =========================================================
+
+    c.titles = [
+        'Vehicle information',
+        'Owner details',
+        'Warranty selection',
+        'Documents',
+        'Review and submit'
+    ];
+
+    c.subs = [
+        'Vehicle and purchase details',
+        'Owner and contact information',
+        'Choose your warranty plan',
+        'Upload the required documents',
+        'Review everything before submitting'
+    ];
+
+    c.icons = ['fa-car', 'fa-user', 'fa-shield', 'fa-upload', 'fa-check-square-o'];
+
+    c.idTypes = ["Driver's License", "State ID Card", "Passport", "Military ID"];
+
+    c.docs = [
+        { key: 'invoice', label: 'Purchase invoice' },
+        { key: 'rc',      label: 'Vehicle registration certificate (RC)' },
+        { key: 'idproof', label: 'Owner ID proof' }
+    ];
+
+
+    // =========================================================
+    // INITIAL STATE
+    // =========================================================
+
+    c.cur = 1;
+    c.err = '';
+    c.msg = '';
+    c.done = false;
+    c.busy = false;
+    c.files = {};
+
+    c.v = c.data.v || {};
+    c.data.o = c.data.o || {};
+    c.data.plans = c.data.plans || [];
+
+    var o = c.data.o;
+
+    // Aaj ki date browser ke hisaab se (server UTC se 1 din ka farak aa sakta hai)
+    var todayStr = $filter('date')(new Date(), 'yyyy-MM-dd');
+
+
+    // =========================================================
+    // FORM DATA
+    // =========================================================
+
+    c.f = {
+        delivery: new Date(todayStr + 'T00:00:00'),
+
+        regNo: '',
+        invoice: '',
+
+        colour: c.v.colour || '',
+        odometer: c.v.odometer || 0,
+
+        name: o.name || '',
+        mobile: o.mobile || '',
+        email: o.email || '',
+
+        idType: '',
+        idNo: '',
+
+        street: o.street || '',
+        city: o.city || '',
+        state: o.state || '',
+        pin: o.pin || '',
+        country: o.country || 'India',
+
+        plan: c.data.plans.length ? c.data.plans[0].id : '',
+
+        terms: false
+    };
+
+
+    // =========================================================
+    // SELECTED WARRANTY PLAN
+    // =========================================================
+
+    c.sel = function () {
+
+        for (var i = 0; i < c.data.plans.length; i++) {
+            if (c.data.plans[i].id == c.f.plan) {
+                return c.data.plans[i];
+            }
+        }
+
+        return {
+            id: '',
+            name: '',
+            term: 0,
+            totalTerm: 0,
+            price: 0,
+            coverageMileage: 0,
+            deductible: 0
+        };
+    };
+
+
+    // =========================================================
+    // WARRANTY END DATE
+    // =========================================================
+
+    c.endDate = function (months) {
+
+        if (!c.f.delivery) {
+            return null;
+        }
+
+        var date = new Date(c.f.delivery);
+        var day = date.getDate();
+
+        date.setMonth(date.getMonth() + (parseInt(months, 10) || 0));
+
+        // 31 Jan + 1 month jaisi halat mein month-end pe rakho (server jaisa)
+        if (date.getDate() != day) {
+            date.setDate(0);
+        }
+
+        date.setDate(date.getDate() - 1);
+
+        return date;
+    };
+
+
+    // =========================================================
+    // DRAFT (is device ke browser mein save hota hai)
+    // Sensitive cheezein (ID number, documents, terms) save nahi hoti.
+    // =========================================================
+
+    var DRAFT_KEY = 'warranty_draft_' + (c.v.inv || '');
+    var DRAFT_FIELDS = [
+        'regNo', 'invoice', 'colour', 'odometer', 'mobile', 'email',
+        'idType', 'street', 'city', 'state', 'pin', 'plan'
+    ];
+
+    function loadDraft() {
+        if (!c.v.inv) { return; }
+
+        try {
+            var raw = $window.localStorage.getItem(DRAFT_KEY);
+            if (!raw) { return; }
+
+            var d = JSON.parse(raw);
+
+            angular.forEach(DRAFT_FIELDS, function (k) {
+                if (d[k] !== undefined && d[k] !== null && d[k] !== '') {
+                    c.f[k] = d[k];
+                }
+            });
+
+            if (d.delivery) {
+                c.f.delivery = new Date(d.delivery + 'T00:00:00');
+            }
+
+            // Draft wala plan ab bhi available hai ya nahi
+            var found = c.data.plans.some(function (p) { return p.id == c.f.plan; });
+            if (!found) {
+                c.f.plan = c.data.plans.length ? c.data.plans[0].id : '';
+            }
+
+            c.msg = 'Your saved draft was restored.';
+
+        } catch (e) { /* draft kharab ho to ignore */ }
+    }
+
+    function clearDraft() {
+        try { $window.localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+    }
+
+    c.saveDraft = function () {
+
+        if (!c.v.inv) { return; }
+
+        try {
+            var d = {};
+
+            angular.forEach(DRAFT_FIELDS, function (k) {
+                d[k] = c.f[k];
+            });
+
+            d.delivery = $filter('date')(c.f.delivery, 'yyyy-MM-dd') || '';
+
+            $window.localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+
+            c.err = '';
+            c.msg = 'Draft saved on this device. ID number and documents are not saved.';
+
+            $timeout(function () { c.msg = ''; }, 5000);
+
+        } catch (e) {
+            c.msg = '';
+            c.err = 'The draft could not be saved on this device.';
+        }
+    };
+
+    loadDraft();
+
+
+    // =========================================================
+    // VALIDATION
+    // =========================================================
+
+    function validate(step) {
+
+        // STEP 1
+        if (step == 1) {
+
+            if (!c.v.inv) {
+                return 'No vehicle is selected.';
+            }
+
+            if (!c.v.vin) {
+                return 'VIN is missing from the selected Inventory record.';
+            }
+
+            if (!c.data.o.customer) {
+                return 'No customer is set on this Inventory record. Add a Customer there first.';
+            }
+
+            if (!c.f.regNo) {
+                return 'Enter the registration number.';
+            }
+
+            if (!c.f.delivery) {
+                return 'Enter the purchase date.';
+            }
+
+            if ($filter('date')(c.f.delivery, 'yyyy-MM-dd') > todayStr) {
+                return 'The purchase date cannot be in the future.';
+            }
+
+            if (!c.f.invoice) {
+                return 'Enter the invoice number.';
+            }
+        }
+
+
+        // STEP 2
+        if (step == 2) {
+
+            if (!c.f.mobile)  { return 'Enter the mobile number.'; }
+            if (!c.f.email)   { return 'Enter a valid email address.'; }
+            if (!c.f.idType)  { return 'Select the ID type.'; }
+            if (!c.f.idNo)    { return 'Enter the ID number.'; }
+            if (!c.f.street)  { return 'Enter the street address.'; }
+            if (!c.f.city)    { return 'Enter the city.'; }
+            if (!c.f.state)   { return 'Enter the state.'; }
+            if (!c.f.pin)     { return 'Enter the PIN code.'; }
+        }
+
+
+        // STEP 3
+        if (step == 3) {
+
+            if (!c.data.plans.length) {
+                return 'No eligible warranty plans are available for this vehicle.';
+            }
+
+            if (!c.f.plan) {
+                return 'Select a warranty plan.';
+            }
+        }
+
+
+        // STEP 4
+        if (step == 4) {
+
+            if (!c.files.invoice) { return 'Upload the purchase invoice.'; }
+            if (!c.files.rc)      { return 'Upload the vehicle registration certificate (RC).'; }
+            if (!c.files.idproof) { return 'Upload the owner ID proof.'; }
+        }
+
+
+        // STEP 5
+        if (step == 5) {
+
+            if (!c.f.terms) {
+                return 'Accept the warranty terms and conditions.';
+            }
+        }
+
+        return '';
+    }
+
+
+    // =========================================================
+    // NAVIGATION
+    // =========================================================
+
+    c.go = function (target) {
+
+        target = parseInt(target, 10);
+
+        if (!target || target < 1 || target > 5) {
+            return;
+        }
+
+        c.msg = '';
+
+        if (target == c.cur) {
+            c.err = '';
+            return;
+        }
+
+        // Peeche jaana hamesha allowed hai
+        if (target < c.cur) {
+            c.err = '';
+            c.cur = target;
+            return;
+        }
+
+        // Aage jaane se pehle beech ke saare steps valid hone chahiye
+        for (var step = c.cur; step < target; step++) {
+
+            var error = validate(step);
+
+            if (error) {
+                c.err = error;
+                c.cur = step;
+                return;
+            }
+        }
+
+        c.err = '';
+        c.cur = target;
+    };
+
+    c.next = function () {
+
+        if (c.cur >= 5) {
+            return;
+        }
+
+        var error = validate(c.cur);
+
+        if (error) {
+            c.err = error;
+            return;
+        }
+
+        c.err = '';
+        c.msg = '';
+        c.cur++;
+    };
+
+    c.back = function () {
+
+        if (c.cur <= 1) {
+            return;
+        }
+
+        c.err = '';
+        c.msg = '';
+        c.cur--;
+    };
+
+
+    // =========================================================
+    // FILE SELECTION  (native listener: jqLite/jQuery dono mein chalta hai)
+    // =========================================================
+
+    var fileHandler = function (event) {
+
+        var input = event.target;
+
+        if (!input || input.type !== 'file') {
+            return;
+        }
+
+        var key = input.getAttribute('data-key');
+        var file = input.files && input.files[0];
+
+        if (!key || !file) {
+            return;
+        }
+
+        $scope.$apply(function () {
+
+            // Maximum 5 MB
+            if (file.size > 5 * 1024 * 1024) {
+                c.err = 'The file is larger than 5 MB.';
+                input.value = '';
+                return;
+            }
+
+            // Sirf PDF, JPG, PNG (extension se check, kyunki file.type kabhi khaali aata hai)
+            if (!/\.(pdf|jpe?g|png)$/i.test(file.name)) {
+                c.err = 'Only PDF, JPG and PNG files are allowed.';
+                input.value = '';
+                return;
+            }
+
+            c.err = '';
+            c.files[key] = file;
+        });
+    };
+
+    $element[0].addEventListener('change', fileHandler);
+
+    $scope.$on('$destroy', function () {
+        $element[0].removeEventListener('change', fileHandler);
+    });
+
+
+    // =========================================================
+    // ATTACHMENT UPLOAD
+    // =========================================================
+
+    function upload(file, key, sysId, regTable) {
+
+        // File ke naam ke aage document type lagao, taaki record pe pehchaan ho sake
+        var fileName = key + '_' + file.name;
+
+        return $http.post(
+            '/api/now/attachment/file' +
+            '?table_name=' + encodeURIComponent(regTable) +
+            '&table_sys_id=' + encodeURIComponent(sysId) +
+            '&file_name=' + encodeURIComponent(fileName),
+            file,
+            {
+                headers: {
+                    'Content-Type': file.type || 'application/octet-stream'
+                },
+                transformRequest: angular.identity
+            }
+        );
+    }
+
+
+    // =========================================================
+    // SUBMIT
+    // =========================================================
+
+    c.submit = function () {
+
+        if (c.busy) {
+            return;
+        }
+
+        var error = validate(5);
+
+        if (error) {
+            c.err = error;
+            return;
+        }
+
+        c.err = '';
+        c.msg = '';
+        c.busy = true;
+
+        var formData = angular.copy(c.f);
+
+        formData.delivery = $filter('date')(c.f.delivery, 'yyyy-MM-dd') || '';
+        formData.inv = c.v.inv;
+
+        // Server Script ko batao ki submit karna hai
+        c.data.action = 'submit';
+        c.data.form = formData;
+
+        c.server.update().then(function () {
+
+            c.data.action = undefined;
+
+            // Server side failure
+            if (c.data.error || !c.data.newId) {
+                c.err = c.data.error || 'Submission failed.';
+                c.busy = false;
+                return;
+            }
+
+            var newId = c.data.newId;
+            var regTable = c.data.regTable;
+
+            // Teeno documents upload karo
+            $q.all(
+                c.docs.map(function (doc) {
+                    return upload(c.files[doc.key], doc.key, newId, regTable);
+                })
+            )
+            .then(function () {
+
+                c.ref = c.data.ref;
+                c.valid = c.endDate(c.data.stdMonths + c.sel().term);
+                clearDraft();
+                c.done = true;
+                c.busy = false;
+
+            })
+            .catch(function () {
+
+                c.err =
+                    'The registration was created (' + c.data.ref + '), ' +
+                    'but one or more documents could not be uploaded. ' +
+                    'Please contact support with this reference number.';
+
+                c.busy = false;
+            });
+
+        }, function () {
+
+            c.err = 'No response from the server. Please try again.';
+            c.busy = false;
+
+        });
+
+    };
+
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* ===== Warranty Registration Wizard: POORA CSS =====&#13;
+   Widget ke CSS field mein jo kuch bhi hai use select-all karke hata do&#13;
+   aur ye poora paste karo (isme pehle wala CSS + naye fixes dono hain). */&#13;
+&#13;
+/* Portal ke Bootstrap ke margin/padding is widget ke andar reset karo */&#13;
+.sn-chrome label{&#13;
+  margin:0;&#13;
+  max-width:none;&#13;
+  display:block;&#13;
+}&#13;
+&#13;
+.sn-chrome p,&#13;
+.sn-chrome h3{&#13;
+  margin:0;&#13;
+}&#13;
+&#13;
+.sn-chrome{&#13;
+  background:#fff;&#13;
+  border:1px solid #c8d5e3;&#13;
+  border-radius:12px;&#13;
+  overflow:hidden;&#13;
+  font-size:13px;&#13;
+}&#13;
+&#13;
+.sn-header{&#13;
+  background:#1a3d66;&#13;
+  padding:10px 16px;&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  justify-content:space-between;&#13;
+}&#13;
+&#13;
+.sn-logo{&#13;
+  color:#fff;&#13;
+  font-size:14px;&#13;
+  font-weight:500;&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:8px;&#13;
+}&#13;
+&#13;
+.sn-logo i{&#13;
+  color:#72b8f5;&#13;
+  font-size:18px;&#13;
+}&#13;
+&#13;
+.sn-nav{&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:14px;&#13;
+}&#13;
+&#13;
+.sn-nav a{&#13;
+  color:#aacfee;&#13;
+  font-size:12px;&#13;
+  text-decoration:none;&#13;
+}&#13;
+&#13;
+.sn-nav i{&#13;
+  color:#aacfee;&#13;
+}&#13;
+&#13;
+.sn-avatar{&#13;
+  width:28px;&#13;
+  height:28px;&#13;
+  border-radius:50%;&#13;
+  background:#2d6a9f;&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  justify-content:center;&#13;
+  color:#fff;&#13;
+  font-size:11px;&#13;
+}&#13;
+&#13;
+.sn-breadcrumb{&#13;
+  background:#f0f4f8;&#13;
+  border-bottom:1px solid #c8d5e3;&#13;
+  padding:8px 16px;&#13;
+  font-size:12px;&#13;
+  color:#5a7a96;&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:6px;&#13;
+}&#13;
+&#13;
+.sn-breadcrumb b{&#13;
+  color:#1a3d66;&#13;
+  font-weight:500;&#13;
+}&#13;
+&#13;
+.sn-ref{&#13;
+  margin-left:auto;&#13;
+  background:#1a3d66;&#13;
+  color:#fff;&#13;
+  font-size:11px;&#13;
+  font-weight:500;&#13;
+  padding:3px 8px;&#13;
+  border-radius:3px;&#13;
+}&#13;
+&#13;
+.sn-body{&#13;
+  display:grid;&#13;
+  grid-template-columns:220px 1fr;&#13;
+  min-height:500px;&#13;
+}&#13;
+&#13;
+.sn-sidebar{&#13;
+  background:#f7f9fb;&#13;
+  border-right:1px solid #c8d5e3;&#13;
+  padding:16px 0;&#13;
+}&#13;
+&#13;
+.sn-sidebar-title{&#13;
+  font-size:11px;&#13;
+  font-weight:500;&#13;
+  color:#5a7a96;&#13;
+  text-transform:uppercase;&#13;
+  letter-spacing:.07em;&#13;
+  padding:0 16px 8px;&#13;
+}&#13;
+&#13;
+.sn-sidebar-item{&#13;
+  padding:8px 16px;&#13;
+  cursor:pointer;&#13;
+  font-size:13px;&#13;
+  color:#2d4a63;&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:8px;&#13;
+  border-left:3px solid transparent;&#13;
+}&#13;
+&#13;
+.sn-sidebar-item:hover{&#13;
+  background:#eef3f8;&#13;
+}&#13;
+&#13;
+.sn-sidebar-item.active{&#13;
+  background:#e6f0f8;&#13;
+  border-left-color:#1a3d66;&#13;
+  color:#1a3d66;&#13;
+  font-weight:500;&#13;
+}&#13;
+&#13;
+.sn-sidebar-item i{&#13;
+  width:18px;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.sn-sidebar-item.active i{&#13;
+  color:#1a3d66;&#13;
+}&#13;
+&#13;
+.sn-sidebar-item.done,&#13;
+.sn-sidebar-item.done i{&#13;
+  color:#27a060;&#13;
+}&#13;
+&#13;
+.sidebar-help{&#13;
+  margin:20px 16px 8px;&#13;
+  border-top:1px solid #c8d5e3;&#13;
+  padding-top:16px;&#13;
+}&#13;
+&#13;
+.help-title{&#13;
+  font-size:11px;&#13;
+  color:#5a7a96;&#13;
+  margin-bottom:8px;&#13;
+  font-weight:500;&#13;
+  text-transform:uppercase;&#13;
+  letter-spacing:.06em;&#13;
+}&#13;
+&#13;
+.help-item{&#13;
+  color:#2d6a9f;&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:6px;&#13;
+  font-size:12px;&#13;
+  margin-bottom:8px;&#13;
+}&#13;
+&#13;
+.sn-right{&#13;
+  min-width:0;&#13;
+  display:flex;&#13;
+  flex-direction:column;&#13;
+}&#13;
+&#13;
+.sn-main{&#13;
+  padding:24px 28px;&#13;
+  background:#fff;&#13;
+  flex:1;&#13;
+}&#13;
+&#13;
+.sn-form-header{&#13;
+  margin-bottom:20px;&#13;
+}&#13;
+&#13;
+.sn-form-heading{&#13;
+  display:flex;&#13;
+  align-items:flex-start;&#13;
+  justify-content:space-between;&#13;
+}&#13;
+&#13;
+.sn-form-title{&#13;
+  font-size:18px;&#13;
+  font-weight:500;&#13;
+  color:#1a3d66;&#13;
+  margin-bottom:4px;&#13;
+}&#13;
+&#13;
+.sn-form-sub{&#13;
+  font-size:13px;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.sn-progress{&#13;
+  font-size:12px;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.step-indicator{&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:6px;&#13;
+  margin-top:10px;&#13;
+  margin-bottom:16px;&#13;
+}&#13;
+&#13;
+.step-dot{&#13;
+  width:8px;&#13;
+  height:8px;&#13;
+  border-radius:50%;&#13;
+  background:#c8d5e3;&#13;
+}&#13;
+&#13;
+.step-dot.done{&#13;
+  background:#27a060;&#13;
+}&#13;
+&#13;
+.step-dot.active{&#13;
+  background:#1a3d66;&#13;
+  width:24px;&#13;
+  border-radius:4px;&#13;
+}&#13;
+&#13;
+.sn-section{&#13;
+  background:#fff;&#13;
+  border:1px solid #c8d5e3;&#13;
+  border-radius:6px;&#13;
+  margin-bottom:16px;&#13;
+  overflow:hidden;&#13;
+}&#13;
+&#13;
+.sn-section-head{&#13;
+  background:#e8eff7;&#13;
+  border-bottom:1px solid #c8d5e3;&#13;
+  padding:10px 16px;&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:8px;&#13;
+}&#13;
+&#13;
+.sn-section-head i{&#13;
+  color:#1a3d66;&#13;
+  font-size:16px;&#13;
+}&#13;
+&#13;
+.sn-section-head span{&#13;
+  font-size:13px;&#13;
+  font-weight:500;&#13;
+  color:#1a3d66;&#13;
+}&#13;
+&#13;
+.sn-section-body{&#13;
+  padding:16px;&#13;
+}&#13;
+&#13;
+.sn-field-grid{&#13;
+  display:grid;&#13;
+  grid-template-columns:1fr 1fr;&#13;
+  gap:12px 20px;&#13;
+}&#13;
+&#13;
+.sn-field-grid.cols3{&#13;
+  grid-template-columns:1fr 1fr 1fr;&#13;
+}&#13;
+&#13;
+.sn-field{&#13;
+  display:flex;&#13;
+  flex-direction:column;&#13;
+  gap:5px;&#13;
+}&#13;
+&#13;
+.sn-field label,&#13;
+.sn-doc-field label{&#13;
+  font-size:12px;&#13;
+  font-weight:500;&#13;
+  color:#3d5a74;&#13;
+}&#13;
+&#13;
+.req{&#13;
+  color:#c0392b;&#13;
+  margin-left:2px;&#13;
+}&#13;
+&#13;
+.sn-input,&#13;
+.sn-select{&#13;
+  width:100%;&#13;
+  height:auto;&#13;
+  padding:7px 10px;&#13;
+  font-size:13px;&#13;
+  border:1px solid #a8bdd1;&#13;
+  border-radius:4px;&#13;
+  background:#fff;&#13;
+  color:#1a2d3d;&#13;
+  outline:none;&#13;
+  box-shadow:none;&#13;
+}&#13;
+&#13;
+.sn-input:focus,&#13;
+.sn-select:focus{&#13;
+  border-color:#1a3d66;&#13;
+  box-shadow:0 0 0 2px rgba(26,61,102,.12);&#13;
+}&#13;
+&#13;
+.sn-readonly{&#13;
+  background:#f5f7fa;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.sn-input:disabled,&#13;
+.sn-select:disabled{&#13;
+  background:#f5f7fa;&#13;
+  cursor:not-allowed;&#13;
+}&#13;
+&#13;
+.info-banner,&#13;
+.info-warning{&#13;
+  border-radius:4px;&#13;
+  padding:10px 14px;&#13;
+  margin-bottom:16px;&#13;
+  display:flex;&#13;
+  align-items:flex-start;&#13;
+  gap:10px;&#13;
+}&#13;
+&#13;
+.info-banner{&#13;
+  background:#e6f0f8;&#13;
+  border:1px solid #a8c4dc;&#13;
+}&#13;
+&#13;
+.info-warning{&#13;
+  background:#fff8d9;&#13;
+  border:1px solid #e9d978;&#13;
+  color:#6a5b00;&#13;
+}&#13;
+&#13;
+.info-banner i{&#13;
+  color:#1a3d66;&#13;
+  margin-top:1px;&#13;
+}&#13;
+&#13;
+.info-warning i{&#13;
+  color:#9a8500;&#13;
+  margin-top:1px;&#13;
+}&#13;
+&#13;
+.info-banner p,&#13;
+.info-warning span{&#13;
+  margin:0;&#13;
+  font-size:12px;&#13;
+  line-height:1.6;&#13;
+}&#13;
+&#13;
+.warranty-card{&#13;
+  border:1px solid #c8d5e3;&#13;
+  border-radius:6px;&#13;
+  padding:12px 14px;&#13;
+  margin-bottom:10px;&#13;
+  cursor:pointer;&#13;
+  display:flex;&#13;
+  align-items:flex-start;&#13;
+  gap:12px;&#13;
+  transition:.15s;&#13;
+}&#13;
+&#13;
+.warranty-card:hover{&#13;
+  border-color:#1a3d66;&#13;
+}&#13;
+&#13;
+.warranty-card.selected{&#13;
+  border-color:#1a3d66;&#13;
+  background:#e6f0f8;&#13;
+}&#13;
+&#13;
+.warranty-card input{&#13;
+  margin-top:2px;&#13;
+  accent-color:#1a3d66;&#13;
+}&#13;
+&#13;
+.wc-info{&#13;
+  flex:1;&#13;
+}&#13;
+&#13;
+.wc-name{&#13;
+  font-size:13px;&#13;
+  font-weight:500;&#13;
+  color:#1a3d66;&#13;
+  margin-bottom:3px;&#13;
+}&#13;
+&#13;
+.wc-desc{&#13;
+  font-size:12px;&#13;
+  color:#5a7a96;&#13;
+  margin-bottom:5px;&#13;
+}&#13;
+&#13;
+.wc-meta{&#13;
+  color:#2d4a63;&#13;
+  font-size:12px;&#13;
+}&#13;
+&#13;
+.wc-badge{&#13;
+  display:inline-block;&#13;
+  background:#dff0d8;&#13;
+  color:#2e6b3c;&#13;
+  font-size:11px;&#13;
+  font-weight:500;&#13;
+  padding:2px 8px;&#13;
+  border-radius:3px;&#13;
+  margin-top:5px;&#13;
+}&#13;
+&#13;
+.wc-price{&#13;
+  font-size:14px;&#13;
+  font-weight:500;&#13;
+  color:#1a3d66;&#13;
+  margin-left:auto;&#13;
+  white-space:nowrap;&#13;
+}&#13;
+&#13;
+.sn-doc-field{&#13;
+  display:flex;&#13;
+  flex-direction:column;&#13;
+  gap:6px;&#13;
+  margin-bottom:14px;&#13;
+}&#13;
+&#13;
+.upload-area{&#13;
+  position:relative;&#13;
+  border:1.5px dashed #a8bdd1;&#13;
+  border-radius:6px;&#13;
+  padding:20px;&#13;
+  text-align:center;&#13;
+  background:#f7f9fb;&#13;
+  overflow:hidden;&#13;
+}&#13;
+&#13;
+.upload-area i{&#13;
+  display:block;&#13;
+  font-size:28px;&#13;
+  color:#a8bdd1;&#13;
+  margin-bottom:8px;&#13;
+}&#13;
+&#13;
+.upload-area &gt; div{&#13;
+  font-size:12px;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.upload-area small{&#13;
+  display:block;&#13;
+  margin-top:4px;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.upload-link{&#13;
+  color:#1a3d66;&#13;
+  font-weight:500;&#13;
+  text-decoration:underline;&#13;
+}&#13;
+&#13;
+.upload-input{&#13;
+  position:absolute;&#13;
+  top:0;&#13;
+  right:0;&#13;
+  bottom:0;&#13;
+  left:0;&#13;
+  width:100%;&#13;
+  height:100%;&#13;
+  opacity:0;&#13;
+  cursor:pointer;&#13;
+}&#13;
+&#13;
+.uploaded-file{&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:10px;&#13;
+  padding:8px 12px;&#13;
+  background:#f7f9fb;&#13;
+  border:1px solid #c8d5e3;&#13;
+  border-radius:4px;&#13;
+  margin-top:8px;&#13;
+}&#13;
+&#13;
+.uploaded-file i{&#13;
+  color:#1a3d66;&#13;
+}&#13;
+&#13;
+.uploaded-file span{&#13;
+  flex:1;&#13;
+  font-size:12px;&#13;
+  color:#2d4a63;&#13;
+}&#13;
+&#13;
+.upload-ok{&#13;
+  color:#27a060 !important;&#13;
+}&#13;
+&#13;
+.edit-link{&#13;
+  margin-left:auto;&#13;
+  font-size:12px;&#13;
+  color:#2d6a9f;&#13;
+  cursor:pointer;&#13;
+  text-decoration:none;&#13;
+}&#13;
+&#13;
+.terms-box{&#13;
+  background:#f0f7ee;&#13;
+  border:1px solid #a3d4b5;&#13;
+  border-radius:6px;&#13;
+  padding:12px 16px;&#13;
+  display:flex;&#13;
+  align-items:flex-start;&#13;
+  gap:10px;&#13;
+}&#13;
+&#13;
+.terms-box input{&#13;
+  margin-top:3px;&#13;
+}&#13;
+&#13;
+.terms-box label{&#13;
+  font-size:12px;&#13;
+  color:#2d4a63;&#13;
+  line-height:1.6;&#13;
+  font-weight:400;&#13;
+}&#13;
+&#13;
+.alert{&#13;
+  font-size:12px;&#13;
+  padding:10px 14px;&#13;
+  margin-bottom:16px;&#13;
+  border-radius:4px;&#13;
+}&#13;
+&#13;
+.sn-footer{&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  justify-content:space-between;&#13;
+  padding:14px 28px;&#13;
+  border-top:1px solid #c8d5e3;&#13;
+  background:#f0f4f8;&#13;
+}&#13;
+&#13;
+.footer-actions{&#13;
+  display:flex;&#13;
+  align-items:center;&#13;
+  gap:10px;&#13;
+}&#13;
+&#13;
+.sn-btn{&#13;
+  padding:8px 18px;&#13;
+  border-radius:4px;&#13;
+  font-size:13px;&#13;
+  font-weight:500;&#13;
+  cursor:pointer;&#13;
+  border:none;&#13;
+}&#13;
+&#13;
+a.sn-btn{&#13;
+  display:inline-block;&#13;
+  text-decoration:none;&#13;
+}&#13;
+&#13;
+.sn-btn:disabled{&#13;
+  opacity:.6;&#13;
+  cursor:not-allowed;&#13;
+}&#13;
+&#13;
+.sn-btn-primary{&#13;
+  background:#1a3d66;&#13;
+  color:#fff;&#13;
+}&#13;
+&#13;
+.sn-btn-primary:hover{&#13;
+  background:#14305a;&#13;
+  color:#fff;&#13;
+}&#13;
+&#13;
+.sn-btn-secondary{&#13;
+  background:#fff;&#13;
+  color:#1a3d66;&#13;
+  border:1px solid #a8bdd1;&#13;
+}&#13;
+&#13;
+.sn-btn-secondary:hover{&#13;
+  background:#f0f4f8;&#13;
+}&#13;
+&#13;
+.sn-btn-success{&#13;
+  background:#27a060;&#13;
+  color:#fff;&#13;
+}&#13;
+&#13;
+.sn-btn-success:hover{&#13;
+  background:#1f8a50;&#13;
+}&#13;
+&#13;
+.sn-empty{&#13;
+  background:#fff;&#13;
+  border:1px solid #c8d5e3;&#13;
+  border-radius:12px;&#13;
+  padding:48px;&#13;
+  text-align:center;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.sn-empty i{&#13;
+  font-size:48px;&#13;
+  color:#a8bdd1;&#13;
+  margin-bottom:12px;&#13;
+}&#13;
+&#13;
+.success{&#13;
+  padding:48px;&#13;
+  text-align:center;&#13;
+}&#13;
+&#13;
+.success-icon{&#13;
+  font-size:56px;&#13;
+  color:#27a060;&#13;
+  margin-bottom:12px;&#13;
+}&#13;
+&#13;
+.success-reference{&#13;
+  display:inline-block;&#13;
+  background:#f0f4f8;&#13;
+  border:1px solid #c8d5e3;&#13;
+  border-radius:6px;&#13;
+  padding:14px 20px;&#13;
+  margin:20px 0;&#13;
+}&#13;
+&#13;
+.success-reference small{&#13;
+  display:block;&#13;
+  font-size:11px;&#13;
+  color:#5a7a96;&#13;
+}&#13;
+&#13;
+.success-reference div{&#13;
+  font-size:18px;&#13;
+  font-weight:500;&#13;
+  color:#1a3d66;&#13;
+}&#13;
+&#13;
+.success-summary{&#13;
+  display:flex;&#13;
+  flex-wrap:wrap;&#13;
+  justify-content:center;&#13;
+  gap:12px 36px;&#13;
+  margin-bottom:24px;&#13;
+}&#13;
+&#13;
+.success-summary small{&#13;
+  display:block;&#13;
+  font-size:11px;&#13;
+  color:#5a7a96;&#13;
+  text-transform:uppercase;&#13;
+}&#13;
+&#13;
+.success-summary b{&#13;
+  color:#1a3d66;&#13;
+}&#13;
+&#13;
+@media(max-width:768px){&#13;
+&#13;
+  .sn-body{&#13;
+    grid-template-columns:1fr;&#13;
+  }&#13;
+&#13;
+  .sn-sidebar{&#13;
+    border-right:none;&#13;
+    border-bottom:1px solid #c8d5e3;&#13;
+  }&#13;
+&#13;
+  .sn-field-grid,&#13;
+  .sn-field-grid.cols3{&#13;
+    grid-template-columns:1fr;&#13;
+  }&#13;
+&#13;
+  .sn-nav{&#13;
+    display:none;&#13;
+  }&#13;
+&#13;
+  .sn-main{&#13;
+    padding:18px;&#13;
+  }&#13;
+&#13;
+  .sn-footer{&#13;
+    padding:12px 18px;&#13;
+  }&#13;
+&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>warranty_registration_wizard</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Warranty Registration Wizard</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+  // ===== CONFIG =====
+  var PREFIX = 'x_2190010_vinwar_0_';   // app scope prefix (scoped table names ke liye zaroori)
+  var STD_MONTHS = 24;                  // standard manufacturer warranty (months)
+  var TERM_IS_TOTAL = true;             // plan "Term (Months)" = TOTAL months (24/36/48/60)
+  var CUR = '$';                        // plan cards pe currency symbol ('$' ya '₹')
+
+  // ===== HELPERS =====
+  function num(v) { return parseFloat(String(v || '0').replace(/[^0-9.]/g, '')) || 0; }
+
+  function ext(v) {                     // extra months = total term - standard warranty
+    var t = parseInt(String(v || '0').replace(/[^0-9]/g, ''), 10) || 0;
+    return TERM_IS_TOTAL ? Math.max(t - STD_MONTHS, 0) : t;
+  }
+
+  function list(v) {                    // "Tesla, Ford,BMW" -> ['tesla','ford','bmw']
+    return String(v || '').split(',').map(function (s) { return s.trim().toLowerCase(); })
+                          .filter(function (s) { return s; });
+  }
+
+  function d10(v) { return String(v || '').substring(0, 10); }   // Date/Time ko yyyy-MM-dd bana do
+
+  // List ka pehla field jo exist kare aur khaali na ho (field na mile to error nahi aata)
+  function pick(gr, names) {
+    for (var i = 0; i < names.length; i++)
+      if (gr.isValidField(names[i]) && gr.getValue(names[i])) return String(gr.getValue(names[i]));
+    return '';
+  }
+
+  // Pehla valid field set karo; na mile to log mein warning likho
+  function setAny(gr, names, val) {
+    for (var i = 0; i < names.length; i++) {
+      if (gr.isValidField(names[i])) { gr.setValue(names[i], val); return true; }
+    }
+    gs.warn('WARRANTY_WIDGET: field nahi mila on ' + gr.getTableName() + ' -> ' + names.join(' / '));
+    return false;
+  }
+
+  // Reference field kis table ko point karta hai (naam guess nahi karna padta)
+  function refTable(gr, field) {
+    try {
+      if (gr.isValidField(field)) return String(gr.getElement(field).getReferenceTable() || '');
+    } catch (e) {}
+    return '';
+  }
+
+  // Table ka sahi naam: pehle prefix ke saath, phir bina prefix ke
+  function tbl(shortName) {
+    var cands = [PREFIX + shortName, shortName];
+    for (var i = 0; i < cands.length; i++)
+      if (new GlideRecord(cands[i]).isValid()) return cands[i];
+    return PREFIX + shortName;
+  }
+
+  var T = {
+    inv: tbl('inventory'),
+    cust: tbl('customer_details'),
+    plan: tbl('warranty_plan'),
+    reg: tbl('warranty_registration')
+  };
+
+  data.today = new GlideDateTime().getLocalDate().getValue();   // yyyy-MM-dd (user ke timezone mein)
+  data.stdMonths = STD_MONTHS;
+  data.cur = CUR;
+  data.regTable = T.reg;            // client attachments upload ke liye use karta hai
+  data.v = {};
+  data.o = {};
+  data.plans = [];
+
+  // 1) Inventory + Customer  (URL: ?id=warranty_reg&inv=<sys_id>)
+  var invId = $sp.getParameter('inv') || (input && input.form && input.form.inv) || '';
+  var inv = new GlideRecord(T.inv);
+  if (invId && inv.get(invId)) {
+    data.v = {
+      inv: invId,
+      vin: pick(inv, ['vin', 'vin_number']),
+      mmt: pick(inv, ['make_model_trim']),
+      year: pick(inv, ['model_year']),
+      odometer: parseInt(pick(inv, ['odometer_reading']), 10) || 0,
+      colour: pick(inv, ['exterior_interior_color', 'exterior_color', 'colour']).substring(0, 40),
+      dealer: inv.isValidField('dealer_name') ? inv.getDisplayValue('dealer_name') : ''
+    };
+
+    // Customer reference Inventory pe 'customer_name' naam se hai
+    var custField = inv.isValidField('customer_name') ? 'customer_name' : 'customer';
+    var cid = pick(inv, [custField]);
+    var custTable = refTable(inv, custField) || T.cust;
+    var c = new GlideRecord(custTable);
+    if (cid && c.get(cid)) {
+      var a1 = pick(c, ['address_line_1']), st = pick(c, ['street']);
+      data.o = {
+        customer: c.getUniqueValue(),
+        name: pick(c, ['name', 'customer_name', 'full_name']) || c.getDisplayValue(),
+        mobile: pick(c, ['number', 'mobile', 'phone']),
+        email: pick(c, ['email']),
+        street: (a1 && st && a1 != st ? a1 + ', ' + st : (a1 || st)).substring(0, 100),
+        city: pick(c, ['city']),
+        state: pick(c, ['state']),
+        pin: pick(c, ['zip_code', 'pin_code']),
+        country: pick(c, ['country']) || 'India'
+      };
+    }
+  }
+
+  // 2) Plans: active + date range + vehicle ki Make aur Model Year se match
+  if (data.v.inv) {
+    var vMmt = String(data.v.mmt || '').trim().toLowerCase();
+    var vYear = String(data.v.year || '').replace(/[^0-9]/g, '');
+    var p = new GlideRecord(T.plan);
+    if (p.isValidField('status')) {
+      var qc = p.addQuery('status', 'active');
+      qc.addOrCondition('status', 'Active');
+    }
+    p.query();
+    while (p.next()) {
+      var eff = d10(p.getValue('effective_date')), exp = d10(p.getValue('expiration_date'));
+      if (eff && eff > data.today) continue;        // abhi effective nahi
+      if (exp && exp < data.today) continue;        // expire ho chuka
+      var makes = list(p.getValue('applicable_makes'));
+      var years = list(p.getValue('applicable_model_years'));
+      if (makes.length && vMmt) {
+        var okMake = makes.some(function (m) { return vMmt.indexOf(m) > -1; });
+        if (!okMake) continue;
+      }
+      if (years.length && vYear && years.indexOf(vYear) < 0) continue;   // khaali = sab years
+
+      var extra = ext(p.getValue('term_months'));
+      data.plans.push({
+        id: p.getUniqueValue(),
+        name: p.getValue('plan_name'),
+        desc: p.getValue('description'),
+        price: num(p.getValue('price')),
+        term: extra,                                  // standard ke upar extra months
+        totalTerm: STD_MONTHS + extra,                // total months (standard + extra)
+        coverageMileage: num(p.getValue('coverage_mileage_limit')),
+        deductible: num(p.getValue('deductible_amount')),
+        category: p.getValue('plan_category')
+      });
+    }
+    data.plans.sort(function (a, b) { return a.price - b.price; });
+  }
+
+  // 3) Submit -> ek Warranty Registration record banao
+  if (input && input.action == 'submit') {
+    var f = input.form || {}, pl = new GlideRecord(T.plan);
+
+    if (!f.inv || !data.v.inv) { data.error = 'No vehicle selected. Open this page from the Inventory record using the Warranty Registration button.'; return; }
+    if (!data.o.customer) { data.error = 'No customer is set on this Inventory record.'; return; }
+    if (!f.regNo || !f.invoice || !f.delivery) { data.error = 'Registration number, invoice number and purchase date are required.'; return; }
+    if (!f.plan || !pl.get(f.plan)) { data.error = 'Please select a warranty plan.'; return; }
+
+    var eligible = data.plans.some(function (x) { return x.id == f.plan; });
+    if (!eligible) { data.error = 'The selected plan is not available for this vehicle.'; return; }
+
+    // End date: UTC mein calculate karo, timezone ki wajah se date 1 din na khisak jaye
+    var gdt = new GlideDateTime(f.delivery + ' 00:00:00');
+    gdt.addMonthsUTC(STD_MONTHS + ext(pl.getValue('term_months')));
+    gdt.addDaysUTC(-1);
+    var endDate = gdt.getValue().substring(0, 10);
+
+    var r = new GlideRecord(T.reg);
+    r.initialize();                                  // Number ka default (auto number) lagta hai
+    setAny(r, ['vin'], f.inv);
+    setAny(r, ['customer'], data.o.customer);
+    setAny(r, ['warranty_plan'], f.plan);
+    setAny(r, ['delivery_date'], f.delivery);
+    setAny(r, ['warranty_start_date'], f.delivery);
+    setAny(r, ['warranty_end_date'], endDate);
+    setAny(r, ['odometer_at_registeration', 'odometer_at_registration'], parseInt(f.odometer, 10) || 0);
+    setAny(r, ['warranty_type'], String(pl.getValue('plan_category') || 'standard').toLowerCase().replace(/[^a-z0-9]+/g, '_'));
+    setAny(r, ['registeration_status', 'registration_status'], 'submitted');
+    setAny(r, ['registration_number'], f.regNo);
+    setAny(r, ['invoice_number'], f.invoice);
+    setAny(r, ['colour'], f.colour);
+    setAny(r, ['owner_mobile'], f.mobile);
+    setAny(r, ['owner_email'], f.email);
+    setAny(r, ['id_type'], f.idType);
+    setAny(r, ['id_number'], f.idNo);
+    setAny(r, ['street_address'], f.street);
+    setAny(r, ['city'], f.city);
+    setAny(r, ['state'], f.state);
+    setAny(r, ['pin_code'], f.pin);
+    setAny(r, ['terms_accepted'], true);
+
+    data.newId = r.insert();
+    if (!data.newId) {
+      var why = (r.getLastErrorMessage && r.getLastErrorMessage()) || '';
+      data.error = 'The record could not be created (check ACLs and mandatory fields). ' + why;
+      return;
+    }
+    data.ref = pick(r, ['number']) || String(data.newId).substring(0, 8).toUpperCase();
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-06 11:14:39</sys_created_on>
+        <sys_id>112382c583f34fd0bcab9780deaad3d2</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Warranty Registration Wizard</sys_name>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name>sp_widget_112382c583f34fd0bcab9780deaad3d2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-09 05:55:12</sys_updated_on>
+        <template><![CDATA[<div class="sn-chrome" ng-if="c.v.inv && !c.done">
+
+  <!-- HEADER -->
+  <div class="sn-header">
+    <div class="sn-logo">
+      <i class="fa fa-shield"></i>
+      <span>ServiceNow</span>
+    </div>
+
+    <div class="sn-nav">
+      <a href="">Home</a>
+      <a href="">Service catalog</a>
+      <a href="">My requests</a>
+      <i class="fa fa-bell"></i>
+      <div class="sn-avatar">SN</div>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="sn-breadcrumb">
+    Service catalog
+    <span>›</span>
+    Vehicle services
+    <span>›</span>
+    <b>Warranty registration</b>
+
+    <div class="sn-ref">Warranty Registration</div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <div class="sn-body">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="sn-sidebar">
+
+      <div class="sn-sidebar-title">Registration steps</div>
+
+      <div
+        class="sn-sidebar-item"
+        ng-repeat="t in c.titles"
+        ng-class="{active: c.cur == $index + 1, done: c.cur > $index + 1}"
+        ng-click="c.go($index + 1)"
+      >
+        <i class="fa" ng-class="c.cur > $index + 1 ? 'fa-check-circle' : c.icons[$index]"></i>
+        <span>{{t}}</span>
+      </div>
+
+      <div class="sidebar-help">
+        <div class="help-title">Help</div>
+
+        <div class="help-item">
+          <i class="fa fa-headphones"></i>
+          Contact support
+        </div>
+
+        <div class="help-item">
+          <i class="fa fa-file-text-o"></i>
+          View guidelines
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="sn-right">
+
+      <div class="sn-main">
+
+        <!-- FORM HEADER -->
+        <div class="sn-form-header">
+
+          <div class="sn-form-heading">
+            <div>
+              <div class="sn-form-title">{{c.titles[c.cur - 1]}}</div>
+              <div class="sn-form-sub">{{c.subs[c.cur - 1]}}</div>
+            </div>
+
+            <div class="sn-progress">Step {{c.cur}} of 5</div>
+          </div>
+
+          <!-- STEP DOTS -->
+          <div class="step-indicator">
+            <div
+              class="step-dot"
+              ng-repeat="n in [1,2,3,4,5]"
+              ng-class="{done: c.cur > n, active: c.cur == n}"
+            ></div>
+          </div>
+
+        </div>
+
+        <!-- ERROR / MESSAGE -->
+        <div class="alert alert-danger" ng-if="c.err">{{c.err}}</div>
+        <div class="alert alert-success" ng-if="c.msg">{{c.msg}}</div>
+
+        <!-- CUSTOMER WARNING -->
+        <div class="info-warning" ng-if="!c.data.o.customer">
+          <i class="fa fa-exclamation-triangle"></i>
+          <span>
+            No customer is set on this vehicle.
+            Add a Customer on the Inventory record before submitting.
+          </span>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- STEP 1 -->
+        <!-- ================================================= -->
+
+        <div ng-show="c.cur == 1">
+
+          <div class="info-banner">
+            <i class="fa fa-info-circle"></i>
+            <p>
+              Enter the vehicle details exactly as shown on your
+              purchase invoice and title documents.
+            </p>
+          </div>
+
+
+          <!-- VEHICLE IDENTIFICATION -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-car"></i>
+              <span>Vehicle identification</span>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid">
+
+                <div class="sn-field">
+                  <label>VIN number<span class="req">*</span></label>
+                  <input class="sn-input sn-readonly" ng-model="c.v.vin" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Registration number<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.regNo" placeholder="e.g. MH12AB1234">
+                </div>
+
+                <div class="sn-field">
+                  <label>Make / Model / Trim<span class="req">*</span></label>
+                  <input class="sn-input sn-readonly" ng-model="c.v.mmt" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Model year<span class="req">*</span></label>
+                  <input class="sn-input sn-readonly" ng-model="c.v.year" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Colour</label>
+                  <input class="sn-input" ng-model="c.f.colour" maxlength="40">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!-- PURCHASE DETAILS -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-file-text-o"></i>
+              <span>Purchase details</span>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid">
+
+                <div class="sn-field">
+                  <label>Date of purchase<span class="req">*</span></label>
+                  <input class="sn-input" type="date" ng-model="c.f.delivery">
+                </div>
+
+                <div class="sn-field">
+                  <label>Dealer name<span class="req">*</span></label>
+                  <input class="sn-input sn-readonly" ng-model="c.v.dealer" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Invoice number<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.invoice" maxlength="40">
+                </div>
+
+                <div class="sn-field">
+                  <label>Odometer at purchase (km)</label>
+                  <input class="sn-input" type="number" min="0" ng-model="c.f.odometer">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- STEP 2 -->
+        <!-- ================================================= -->
+
+        <div ng-show="c.cur == 2">
+
+          <!-- REGISTERED OWNER -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-user"></i>
+              <span>Registered owner</span>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid">
+
+                <div class="sn-field">
+                  <label>Owner name</label>
+                  <input class="sn-input sn-readonly" ng-model="c.f.name" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Mobile number<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.mobile" maxlength="20">
+                </div>
+
+                <div class="sn-field">
+                  <label>Email address<span class="req">*</span></label>
+                  <input class="sn-input" type="email" ng-model="c.f.email" maxlength="100">
+                </div>
+
+                <div class="sn-field">
+                  <label>ID type<span class="req">*</span></label>
+                  <select class="sn-select" ng-model="c.f.idType" ng-options="o for o in c.idTypes">
+                    <option value="">-- Select --</option>
+                  </select>
+                </div>
+
+                <div class="sn-field" style="grid-column:1/-1">
+                  <label>ID number<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.idNo" maxlength="40">
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- ADDRESS -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-map-marker"></i>
+              <span>Address</span>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid">
+
+                <div class="sn-field" style="grid-column:1/-1">
+                  <label>Street address<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.street" maxlength="100">
+                </div>
+
+                <div class="sn-field">
+                  <label>City<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.city" maxlength="40">
+                </div>
+
+                <div class="sn-field">
+                  <label>State<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.state" maxlength="40">
+                </div>
+
+                <div class="sn-field">
+                  <label>PIN code<span class="req">*</span></label>
+                  <input class="sn-input" ng-model="c.f.pin" maxlength="10">
+                </div>
+
+                <div class="sn-field">
+                  <label>Country</label>
+                  <input class="sn-input sn-readonly" ng-model="c.f.country" readonly>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- STEP 3 -->
+        <!-- ================================================= -->
+
+        <div ng-show="c.cur == 3">
+
+          <!-- MANUFACTURER WARRANTY -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-shield"></i>
+              <span>Manufacturer warranty</span>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid cols3">
+
+                <div class="sn-field">
+                  <label>Warranty type</label>
+                  <input class="sn-input sn-readonly" value="Standard manufacturer" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Start date</label>
+                  <input class="sn-input sn-readonly" value="{{c.f.delivery | date:'dd MMM yyyy'}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Expiry date</label>
+                  <input class="sn-input sn-readonly" value="{{c.endDate(c.data.stdMonths) | date:'dd MMM yyyy'}}" readonly>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- EXTENDED WARRANTY -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-plus"></i>
+              <span>Extended warranty plan</span>
+            </div>
+
+            <div class="sn-section-body">
+
+              <div class="info-warning" ng-if="!c.data.plans.length">
+                No warranty plans are available for this vehicle.
+              </div>
+
+              <label
+                class="warranty-card"
+                ng-repeat="p in c.data.plans"
+                ng-class="{selected: c.f.plan == p.id}"
+              >
+
+                <input type="radio" ng-model="c.f.plan" ng-value="p.id">
+
+                <div class="wc-info">
+
+                  <div class="wc-name">{{p.name}}</div>
+                  <div class="wc-desc">{{p.desc}}</div>
+
+                  <div class="wc-meta">
+                    Total warranty term: {{p.totalTerm}} months
+                  </div>
+
+                  <div class="wc-meta" ng-if="p.coverageMileage">
+                    Coverage: {{p.coverageMileage | number}} km
+                  </div>
+
+                  <div class="wc-meta">
+                    Deductible: {{p.deductible | currency:c.data.cur:0}}
+                  </div>
+
+                  <div class="wc-meta">
+                    Total coverage: {{p.totalTerm / 12 | number:1}} years
+                  </div>
+
+                </div>
+
+                <div class="wc-price">{{p.price | currency:c.data.cur:0}}</div>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- STEP 4 -->
+        <!-- ================================================= -->
+
+        <div ng-show="c.cur == 4">
+
+          <div class="info-banner">
+            <i class="fa fa-info-circle"></i>
+            <p>
+              Upload clear scans or photos.
+              Accepted formats: PDF, JPG, PNG.
+              Maximum 5 MB per file.
+            </p>
+          </div>
+
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-files-o"></i>
+              <span>Required documents</span>
+            </div>
+
+            <div class="sn-section-body">
+
+              <div class="sn-doc-field" ng-repeat="d in c.docs">
+
+                <label>{{d.label}}<span class="req">*</span></label>
+
+                <div class="upload-area">
+
+                  <i class="fa fa-cloud-upload"></i>
+
+                  <div>
+                    <span class="upload-link">Browse files</span>
+                    or drag and drop here
+                  </div>
+
+                  <small>PDF, JPG, PNG — max 5 MB</small>
+
+                  <input
+                    type="file"
+                    class="upload-input"
+                    data-key="{{d.key}}"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  >
+
+                </div>
+
+                <div class="uploaded-file" ng-if="c.files[d.key]">
+                  <i class="fa fa-file"></i>
+                  <span>{{c.files[d.key].name}}</span>
+                  <i class="fa fa-check-circle upload-ok"></i>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- STEP 5 -->
+        <!-- ================================================= -->
+
+        <div ng-show="c.cur == 5">
+
+          <!-- VEHICLE -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-car"></i>
+              <span>Vehicle</span>
+              <a class="edit-link" ng-click="c.go(1)">Edit</a>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid cols3">
+
+                <div class="sn-field">
+                  <label>VIN</label>
+                  <input class="sn-input sn-readonly" value="{{c.v.vin}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Make / model</label>
+                  <input class="sn-input sn-readonly" value="{{c.v.mmt}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Purchase date</label>
+                  <input class="sn-input sn-readonly" value="{{c.f.delivery | date:'dd MMM yyyy'}}" readonly>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- OWNER -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-user"></i>
+              <span>Owner</span>
+              <a class="edit-link" ng-click="c.go(2)">Edit</a>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid cols3">
+
+                <div class="sn-field">
+                  <label>Name</label>
+                  <input class="sn-input sn-readonly" value="{{c.f.name}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Mobile</label>
+                  <input class="sn-input sn-readonly" value="{{c.f.mobile}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>City</label>
+                  <input class="sn-input sn-readonly" value="{{c.f.city}}, {{c.f.state}}" readonly>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- WARRANTY -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-shield"></i>
+              <span>Warranty plan</span>
+              <a class="edit-link" ng-click="c.go(3)">Edit</a>
+            </div>
+
+            <div class="sn-section-body">
+              <div class="sn-field-grid cols3">
+
+                <div class="sn-field">
+                  <label>Manufacturer</label>
+                  <input class="sn-input sn-readonly" value="Standard {{c.data.stdMonths / 12}}-year" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Extended plan</label>
+                  <input class="sn-input sn-readonly" value="{{c.sel().name}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Plan price</label>
+                  <input class="sn-input sn-readonly" value="{{c.sel().price | currency:c.data.cur:0}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Term (months)</label>
+                  <input class="sn-input sn-readonly" value="{{c.sel().totalTerm}}" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Coverage mileage limit</label>
+                  <input class="sn-input sn-readonly" value="{{c.sel().coverageMileage | number}} km" readonly>
+                </div>
+
+                <div class="sn-field">
+                  <label>Deductible amount</label>
+                  <input class="sn-input sn-readonly" value="{{c.sel().deductible | currency:c.data.cur:0}}" readonly>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- DOCUMENTS -->
+          <div class="sn-section">
+
+            <div class="sn-section-head">
+              <i class="fa fa-files-o"></i>
+              <span>Documents</span>
+              <a class="edit-link" ng-click="c.go(4)">Edit</a>
+            </div>
+
+            <div class="sn-section-body">
+
+              <div
+                class="uploaded-file"
+                ng-repeat="d in c.docs"
+                ng-if="c.files[d.key]"
+              >
+                <i class="fa fa-file"></i>
+                <span>{{d.label}}: {{c.files[d.key].name}}</span>
+                <i class="fa fa-check-circle upload-ok"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- TERMS -->
+          <div class="terms-box">
+
+            <input type="checkbox" id="wr-terms" ng-model="c.f.terms">
+
+            <label for="wr-terms">
+              I confirm that all the information provided is accurate
+              and agree to the warranty terms and conditions.
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FOOTER -->
+      <div class="sn-footer">
+
+        <div>
+          <button
+            type="button"
+            class="sn-btn sn-btn-secondary"
+            ng-show="c.cur > 1"
+            ng-disabled="c.busy"
+            ng-click="c.back()"
+          >
+            <i class="fa fa-arrow-left"></i>
+            Back
+          </button>
+        </div>
+
+        <div class="footer-actions">
+
+          <button
+            type="button"
+            class="sn-btn sn-btn-secondary"
+            ng-show="c.cur < 5"
+            ng-click="c.saveDraft()"
+          >
+            Save draft
+          </button>
+
+          <button
+            type="button"
+            class="sn-btn sn-btn-primary"
+            ng-show="c.cur < 5"
+            ng-click="c.next()"
+          >
+            Next: {{c.titles[c.cur]}}
+            <i class="fa fa-arrow-right"></i>
+          </button>
+
+          <button
+            type="button"
+            class="sn-btn sn-btn-success"
+            ng-show="c.cur == 5"
+            ng-disabled="c.busy"
+            ng-click="c.submit()"
+          >
+            <i class="fa fa-check"></i>
+            {{c.busy ? 'Submitting...' : 'Submit registration'}}
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- NO VEHICLE -->
+<div class="sn-empty" ng-if="!c.v.inv">
+
+  <i class="fa fa-car"></i>
+
+  <h3>No vehicle selected</h3>
+
+  <p>
+    Open an Inventory record and click the
+    <b>Warranty Registration</b> button.
+  </p>
+
+</div>
+
+
+<!-- SUCCESS -->
+<div class="sn-chrome success" ng-if="c.v.inv && c.done">
+
+  <div class="success-icon">
+    <i class="fa fa-check-circle"></i>
+  </div>
+
+  <h3>Registration submitted</h3>
+
+  <p>Your warranty registration has been received.</p>
+
+  <div class="success-reference">
+    <small>Reference number</small>
+    <div>{{c.ref}}</div>
+  </div>
+
+  <div class="success-summary">
+
+    <div>
+      <small>Vehicle</small>
+      <b>{{c.v.mmt}}</b>
+    </div>
+
+    <div>
+      <small>VIN</small>
+      <b>{{c.v.vin}}</b>
+    </div>
+
+    <div>
+      <small>Plan</small>
+      <b>{{c.sel().name}}</b>
+    </div>
+
+    <div>
+      <small>Warranty valid till</small>
+      <b>{{c.valid | date:'dd MMM yyyy'}}</b>
+    </div>
+
+  </div>
+
+  <a class="sn-btn sn-btn-primary" href="/sp">Back to portal home</a>
+
+</div>]]></template>
+    </sp_widget>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>112382c583f34fd0bcab9780deaad3d2</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-06 11:14:40</sys_created_on>
+        <sys_id>95234ac583f34fd0bcab9780deaad3e4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-06 11:14:40</sys_updated_on>
+        <table>sp_widget</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

@@ -2,11 +2,10 @@
     <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="5714758c835f0f10bcab9780deaad3be" label="Inventory" max_length="40" name="x_2190010_vinwar_0_inventory" type="collection">
         <element label="Customer Name" max_length="40" name="customer_name" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
         <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
-        <element label="Dealer Name" max_length="40" name="dealer_name" reference="x_2190010_vinwar_0_dealer" type="reference"/>
+        <element label="Dealer Name" mandatory="true" max_length="40" name="dealer_name" reference="x_2190010_vinwar_0_dealer" type="reference"/>
         <element label="Model Year" max_length="40" name="model_year" type="integer"/>
         <element label="Title / Registration Status" max_length="40" name="title_registration_status" type="string"/>
         <element label="Engine Type / Transmission" max_length="100" name="engine_type_transmission" type="string"/>
-        <element label="Approval Required" max_length="40" name="approval_required" type="string"/>
         <element choice="3" label="Status" max_length="40" name="status" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Sold" sequence="0" value="sold"/>
@@ -15,10 +14,19 @@
         </element>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="Make / Model / Trim" max_length="50" name="make_model_trim" type="string"/>
-        <element label="VIN" mandatory="true" max_length="40" name="vin" type="string"/>
+        <element display="true" label="VIN" mandatory="true" max_length="40" name="vin" type="string"/>
         <element label="Dealer Allocation ID" max_length="40" name="dealer_allocation_id" type="string"/>
         <element label="Current Location" max_length="255" name="current_location" type="string"/>
         <element label="Odometer Reading" max_length="40" name="odometer_reading" type="integer"/>
+        <element choice="1" label="Company Name" mandatory="true" max_length="40" name="company_name" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Ferrari" value="Ferrari"/>
+                <element inactive_on_update="false" label="Volkswagen" value="Volkswagen"/>
+                <element inactive_on_update="false" label="Renault" value="renault"/>
+                <element inactive_on_update="false" label="Volvo" value="volvo"/>
+                <element inactive_on_update="false" label="Škoda" value="skoda"/>
+            </choice>
+        </element>
         <element label="Exterior / Interior Color" max_length="40" name="exterior_interior_color" type="string"/>
         <element label="MSRP / Invoice Price" max_length="40" name="msrp_invoice_price" type="integer"/>
         <element label="Production Date &amp; Plant" max_length="40" name="production_date_plant" type="glide_date"/>

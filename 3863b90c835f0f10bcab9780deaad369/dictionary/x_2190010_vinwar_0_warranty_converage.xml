@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="94d469c583bf0fd0bcab9780deaad38a" label="Warranty Converage" max_length="40" name="x_2190010_vinwar_0_warranty_converage" type="collection">
+        <element label="Description" max_length="40" name="description" type="string"/>
+        <element label="Start Date" max_length="40" name="start_date" type="glide_date"/>
+        <element label="Warranty Plan" max_length="40" name="warranty_plan" reference="x_2190010_vinwar_0_warranty_plan" type="reference"/>
+        <element label="Warranty Registration" max_length="40" name="warranty_registration" reference="x_2190010_vinwar_0_warranty_registration" type="reference"/>
+        <element label="End Date" max_length="40" name="end_date" type="glide_date"/>
+    </element>
+</database>

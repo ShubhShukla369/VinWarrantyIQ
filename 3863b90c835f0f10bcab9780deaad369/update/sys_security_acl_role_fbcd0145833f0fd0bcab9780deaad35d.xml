@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-06 07:21:38</sys_created_on>
+        <sys_id>fbcd0145833f0fd0bcab9780deaad35d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_2190010_vinwar_0_pdi.x_2190010_vinwar_0.pdi_user</sys_name>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_security_acl display_value="x_2190010_vinwar_0_pdi">3bcd0145833f0fd0bcab9780deaad357</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_fbcd0145833f0fd0bcab9780deaad35d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-06 07:21:38</sys_updated_on>
+        <sys_user_role display_value="x_2190010_vinwar_0.pdi_user" name="x_2190010_vinwar_0.pdi_user">d7cd4181833f0fd0bcab9780deaad3b7</sys_user_role>
+    </sys_security_acl_role>
+</record_update>

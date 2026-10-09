@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="3fbd8105833f0fd0bcab9780deaad351" extends="task" label="PDI" max_length="40" name="x_2190010_vinwar_0_pdi" type="collection">
+        <element label="VIN" max_length="32" name="vin" reference="x_2190010_vinwar_0_inventory" type="reference"/>
+    </element>
+</database>

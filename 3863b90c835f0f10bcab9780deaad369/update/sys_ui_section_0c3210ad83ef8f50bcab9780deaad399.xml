@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" section_id="0c3210ad83ef8f50bcab9780deaad399" sys_domain="global" table="x_2190010_vinwar_0_inventory_transaction_history" version="3" view="dealer">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>vin</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>572350218323cf50bcab9780deaad366</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>from_dealer</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>d72390218323cf50bcab9780deaad33a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>transfer_request_date</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>932390218323cf50bcab9780deaad33b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>assigned_approver</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>5f2390218323cf50bcab9780deaad33b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>notes</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>1b2390218323cf50bcab9780deaad33c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>d32390218323cf50bcab9780deaad33d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>transaction_type</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>9f2390218323cf50bcab9780deaad33d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>transaction_status</element>
+            <position>7</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>5b2390218323cf50bcab9780deaad33e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>to_dealer</element>
+            <position>8</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>172390218323cf50bcab9780deaad33f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>transaction_date</element>
+            <position>9</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>df2390218323cf50bcab9780deaad33f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>approval_status</element>
+            <position>10</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>9b2390218323cf50bcab9780deaad340</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>odometer_at_transfer</element>
+            <position>11</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:06:43</sys_created_on>
+            <sys_id>572390218323cf50bcab9780deaad341</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_2190010_vinwar_0_inventory_transaction" display_value="x_2190010_vinwar_0_inventory_transaction" name="x_2190010_vinwar_0_inventory_transaction_history" sys_domain="global" view="789c7d20832bc750bcab9780deaad3c7">0c3210ad83ef8f50bcab9780deaad399</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:06:43</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>x_2190010_vinwar_0_inventory_transaction</caption>
+            <header>false</header>
+            <name>x_2190010_vinwar_0_inventory_transaction_history</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-09-25 06:02:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>0c3210ad83ef8f50bcab9780deaad399</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_2190010_vinwar_0_inventory_transaction_history</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+            <sys_update_name>sys_ui_section_0c3210ad83ef8f50bcab9780deaad399</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-09-25 06:02:25</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Dealer" name="dealer">789c7d20832bc750bcab9780deaad3c7</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

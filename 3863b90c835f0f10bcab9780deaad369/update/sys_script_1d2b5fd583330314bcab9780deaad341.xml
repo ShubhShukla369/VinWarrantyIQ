@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_2190010_vinwar_0_inventory_transaction_history</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Auto Approve when not required</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+    if (current.vin.nil()) return;
+
+    var vinGR = current.vin.getRefRecord();
+    if (!vinGR.isValidRecord()) return;
+
+    // Dono taraf lowercase, isliye case ka mismatch nahi hoga
+    var approvalCompanies = ['ferrari', 'volkswagen'];
+
+    // Inventory table ka Company Name column (dictionary se confirmed)
+    var company = (vinGR.getDisplayValue('company_name') || '').toString().trim().toLowerCase();
+
+    var needsApproval = approvalCompanies.indexOf(company) > -1;
+
+    current.approval_status = needsApproval ? 'requested' : 'approved';
+
+    gs.info('AUTOAPPROVE | company: [' + company + '] | needsApproval: ' + needsApproval);
+    gs.addInfoMessage('Company: [' + company + '] -> ' + current.approval_status);   // test ke baad ye line hata dena
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 12:18:50</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>1d2b5fd583330314bcab9780deaad341</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Auto Approve when not required</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name>sys_script_1d2b5fd583330314bcab9780deaad341</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-08 06:13:44</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=1d2b5fd583330314bcab9780deaad341"/>
+</record_update>
