@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="4086258983ff0fd0bcab9780deaad3a6" label="Warranty Plan" max_length="40" name="x_2190010_vinwar_0_warranty_plan" type="collection">
+        <element label="Expiration Date" max_length="40" name="expiration_date" type="glide_date"/>
+        <element label="Coverage Start Trigger" max_length="40" name="coverage_start_trigger" type="string"/>
+        <element label="Plan Name" max_length="40" name="plan_name" type="string"/>
+        <element label="Coverage Mileage Limit" max_length="40" name="coverage_mileage_limit" type="string"/>
+        <element label="Renewable" max_length="40" name="renewable" type="boolean"/>
+        <element label="Description" max_length="40" name="description" type="string_full_utf8"/>
+        <element label="Applicable Model Years" max_length="40" name="applicable_model_years" type="string"/>
+        <element choice="1" label="Status" max_length="40" name="status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Inactive" sequence="1" value="Inactive"/>
+                <element inactive_on_update="false" label="Active" sequence="0" value="Active"/>
+            </choice>
+        </element>
+        <element label="Price" max_length="40" name="price" type="string"/>
+        <element label="Max Claim Payout" max_length="40" name="max_claim_payout" type="currency"/>
+        <element label="Is Transferable" max_length="40" name="is_transferable" type="string"/>
+        <element label="Applicable Makes" max_length="40" name="applicable_makes" type="string"/>
+        <element label="Plan Category" max_length="40" name="plan_category" type="string"/>
+        <element label="Term (Months)" max_length="40" name="term_months" type="string"/>
+        <element label="Deductible Amount" max_length="40" name="deductible_amount" type="currency"/>
+        <element label="badge" max_length="40" name="badge" type="string"/>
+        <element label="Transfer Fee" max_length="40" name="transfer_fee" type="currency"/>
+        <element choice="1" label="Country" max_length="40" name="country" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="United States" sequence="0" value="United States"/>
+            </choice>
+        </element>
+        <element label="Provider/Underwriter" max_length="40" name="provider_underwriter" type="string"/>
+        <element label="Plan ID" max_length="40" name="plan_id" type="string"/>
+        <element label="Effective Date" max_length="40" name="effective_date" type="glide_date"/>
+    </element>
+</database>

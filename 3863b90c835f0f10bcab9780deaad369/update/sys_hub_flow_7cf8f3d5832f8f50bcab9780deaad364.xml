@@ -1,0 +1,1434 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>true</active>
+        <allow_high_security_roles>false</allow_high_security_roles>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,timeFromCreateToActivate=1066323000,viewActivatedIn=naturalLanguage</attributes>
+        <authored_on_release_version>29000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description/>
+        <display_name_after_preview/>
+        <flow_priority>MEDIUM</flow_priority>
+        <generation_source/>
+        <internal_name>inventory_transaction_approval_amp_notification</internal_name>
+        <label_cache>[{"name":"Created or Updated_1.current.assigned_approver","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛Assigned Approver","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"assigned_approver","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"Created or Updated_1.current.to_dealer","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛To Dealer","reference":"x_2190010_vinwar_0_dealer","reference_display":"Dealer","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"to_dealer","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record","dealer_name"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":[null]}},{"name":"Created or Updated_1.current.to_customer","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛To Customer","reference":"x_2190010_vinwar_0_customer_details","reference_display":"Customer Details","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"to_customer","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record"]}},{"name":"Created or Updated_1.current.from_dealer","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛From Dealer","reference":"x_2190010_vinwar_0_dealer","reference_display":"Dealer","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"from_dealer","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":[null]}},{"name":"Created or Updated_1.current.vin","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛VIN","reference":"x_2190010_vinwar_0_inventory","reference_display":"Inventory","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"vin","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":[null]}},{"name":"2d727bc5-383c-4d55-833f-a96db574f539.approval_state","label":"1 - Ask For Approval➛Approval State","reference_display":"Approval State","type":"choice","base_type":"choice","choices":[{"label":"-- None --","value":"","order":0.0},{"label":"Not Yet Requested","value":"not requested","order":1.0},{"label":"Requested","value":"requested","order":2.0},{"label":"Approved","value":"approved","order":3.0},{"label":"Rejected","value":"rejected","order":4.0},{"label":"Cancelled","value":"cancelled","order":5.0},{"label":"No Longer Required","value":"not_required","order":6.0},{"label":"Skipped","value":"skipped","order":7.0}],"usedInstances":{"8c14a71c-70f5-4059-b172-4727e08ba0d0":["condition"]},"attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"{{static.a8f98bb0eb32010045e1a5115206fe3a}}","label":"Abraham Lincoln","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"{{static.62826bf03710200044e0bfc8bcbe5df1}}","label":"Abel Tuter","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"{{static.6816f79cc0a8016401c5a33be04be441}}","label":"System Administrator","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"Created or Updated_1.current","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record","reference":"x_2190010_vinwar_0_inventory_transaction_history","reference_display":"Inventory Transaction History","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["record"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":["record",null],"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record","dealer_name"],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":["record"]},"attributes":{}},{"name":"Created or Updated_1.current.transaction_type","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛Transaction Type","reference":"","reference_display":"Transaction Type","type":"choice","base_type":"choice","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"transaction_type","choices":[{"label":"-- None --","sequence":-1.0,"selected":false,"used":false,"image":"","reference":false,"rawLabel":"-- None --","missing":false,"value":""},{"parameters":{"name":"x_2190010_vinwar_0_inventory_transaction_history","dependent_values":[""],"dependent_values_map":{"":"C2C"}},"sequence":0.0,"selected":false,"label":"C2C","used":false,"image":"","reference":false,"rawLabel":"C2C","missing":false,"value":"C2C"},{"parameters":{"name":"x_2190010_vinwar_0_inventory_transaction_history","dependent_values":[""],"dependent_values_map":{"":"D2D"}},"sequence":1.0,"selected":false,"label":"D2D","used":false,"image":"","reference":false,"rawLabel":"D2D","missing":false,"value":"D2D"}],"usedInstances":{"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null]}}]</label_cache>
+        <master_snapshot>658228e183a3cf50bcab9780deaad3d5</master_snapshot>
+        <master_snapshot_digest/>
+        <name>Inventory Transaction Approval &amp; Notification</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id>aaac53d983330314bcab9780deaad3d7</remote_trigger_id>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>published</status>
+        <substatus/>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:08</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>7cf8f3d5832f8f50bcab9780deaad364</sys_id>
+        <sys_mod_count>47</sys_mod_count>
+        <sys_name>Inventory Transaction Approval &amp; Notification</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name>sys_hub_flow_7cf8f3d5832f8f50bcab9780deaad364</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:15</sys_updated_on>
+        <type>flow</type>
+        <updation_source/>
+        <version>2</version>
+        <version_record>87ac93d983330314bcab9780deaad32d</version_record>
+    </sys_hub_flow>
+    <sys_translated_text action="delete_multiple" query="documentkey=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_variable_value action="delete_multiple" query="document_key=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_flow_record_trigger action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition table="x_2190010_vinwar_0_inventory_transaction_history">approval_status=requested<item display_value="Requested" endquery="false" field="approval_status" goto="false" newquery="false" operator="=" or="false" value="requested"/>
+        </condition>
+        <name/>
+        <on_delete>false</on_delete>
+        <on_insert>true</on_insert>
+        <on_update>true</on_update>
+        <published_version/>
+        <run_flow_in>background</run_flow_in>
+        <run_on_extended>false</run_on_extended>
+        <run_when_setting>both</run_when_setting>
+        <run_when_user_list/>
+        <run_when_user_setting>any</run_when_user_setting>
+        <sys_class_name>sys_flow_record_trigger</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 12:24:15</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>aaac53d983330314bcab9780deaad3d7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_overrides/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:15</sys_updated_on>
+        <table>x_2190010_vinwar_0_inventory_transaction_history</table>
+        <trigger_definition/>
+    </sys_flow_record_trigger>
+    <sys_trigger_runner_mapping action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <data>{"run_flow_in":"background","run_when_user_list":[],"run_when_setting":"both","run_when_user_setting":"any","run_on_extended":"false"}</data>
+        <identifier>7cf8f3d5832f8f50bcab9780deaad364</identifier>
+        <identifier_type>flow</identifier_type>
+        <runner>FDTriggerRunner</runner>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 12:24:15</sys_created_on>
+        <sys_id>eeac53d983330314bcab9780deaad3d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:15</sys_updated_on>
+        <trigger display_value="">aaac53d983330314bcab9780deaad3d7</trigger>
+    </sys_trigger_runner_mapping>
+    <sys_trigger_runner_mapping action="delete_multiple" query="identifier=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT INeeac53d983330314bcab9780deaad3d8"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT INb4f8f3d5832f8f50bcab9780deaad369"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>7cf8f3d5832f8f50bcab9780deaad364</id>
+        <name>Inventory Transaction Approval &amp; Notification</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:09</sys_created_on>
+        <sys_id>b4f8f3d5832f8f50bcab9780deaad369</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 04:12:09</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=b4f8f3d5832f8f50bcab9780deaad369"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT IN5f193fd5832f8f50bcab9780deaad3f2,8f193fd5832f8f50bcab9780deaad31a,df193fd5832f8f50bcab9780deaad3fd"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=document_id,uiTypeLabel=Document ID</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent>table_name</dependent>
+        <dependent_on_field>table_name</dependent_on_field>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>current</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">document_id</internal_type>
+        <label>Record</label>
+        <mandatory>true</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</model>
+        <model_id>7cf8f3d5832f8f50bcab9780deaad364</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_7cf8f3d5832f8f50bcab9780deaad364</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:52</sys_created_on>
+        <sys_id>5f193fd5832f8f50bcab9780deaad3f2</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:07:29</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>true</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=5f193fd5832f8f50bcab9780deaad3f2"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name,uiTypeLabel=Table Name</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>table_name</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">table_name</internal_type>
+        <label>Table Name</label>
+        <mandatory>false</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</model>
+        <model_id>7cf8f3d5832f8f50bcab9780deaad364</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_7cf8f3d5832f8f50bcab9780deaad364</name>
+        <next_element/>
+        <order>101</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:50</sys_created_on>
+        <sys_id>8f193fd5832f8f50bcab9780deaad31a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:07:29</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=8f193fd5832f8f50bcab9780deaad31a"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>child_label=FDChangeDetails,child_name=FDChangeDetails,child_type=object,child_type_label=Object,co_type_name=FDCollection,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,pwd2droppable=true,uiType=array.object,uiTypeLabel=Array.Object</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>changed_fields</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Changed Fields</label>
+        <mandatory>false</mandatory>
+        <max_length>4000</max_length>
+        <model display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</model>
+        <model_id>7cf8f3d5832f8f50bcab9780deaad364</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_7cf8f3d5832f8f50bcab9780deaad364</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:52</sys_created_on>
+        <sys_id>df193fd5832f8f50bcab9780deaad3fd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 04:12:52</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=df193fd5832f8f50bcab9780deaad3fd"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT INfa1973d5832f8f50bcab9780deaad353"/>
+    <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</flow>
+        <generation_source/>
+        <name>Created or Updated</name>
+        <published_version/>
+        <remote_sys_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:49</sys_created_on>
+        <sys_id>fa1973d5832f8f50bcab9780deaad353</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:05</sys_updated_on>
+        <trigger_definition display_value="Created or Updated">a45d9180c32222002841b63b12d3aea7</trigger_definition>
+        <trigger_inputs>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</trigger_inputs>
+        <trigger_outputs/>
+        <trigger_type>record_create_or_update</trigger_type>
+        <updation_source/>
+    </sys_hub_trigger_instance_v2>
+    <sys_hub_action_instance_v2 action="delete_multiple" query="flow=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT IN0739d06d8323cf50bcab9780deaad3d6,354a5ced8323cf50bcab9780deaad3f3,fed4c319837fcfd0bcab9780deaad3ac"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f8f2e9920b10030085c083eb37673abd</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 06:33:12</sys_created_on>
+        <sys_id>0739d06d8323cf50bcab9780deaad3d6</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-08 09:10:12</sys_updated_on>
+        <ui_id>2d727bc5-383c-4d55-833f-a96db574f539</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1YXW/iOBT9K1GeKesQCIG3qqjarnZnVv2Yl1JFxrkpHgWHsR1aFvHf9yZ2EgZaBnYYjbqdF4Sv73XOuTkndnK/cnnsDt1+mHRgMOiQiUeIT0jYYyT0YeL3g75PGXFbrqAzwEwJLJMxjhc0zYvAanUhgWqInUw6d/O4+Bt5bZZLCUKv15gaczVP6fKTrcAIm/I0xnl3eP/QcudU4uIapDtcbU0dii6lE0gx9bqCtw1XL+fFOM5YPkNcEa+Cf9rKkZ1xrkY4g0UFHNJy4VmDiAFxJDRV0HJnVCDJTC7doZY5BpB+/FGkyzpjyoU2PGf0WfF/8MJ+p8hLAIkx24N6GNn+mHAyopre4MpM57JuV8YZKNOSGBKap/piM2YSPs41z4Qp0XSSVtVZms/EB9MQt15g43bkCkHAvOBZIDe0kptp9nRdgbzkouyIpZhmjKb1iGot+STXBZyVCymULZ7R+ZyLx2guswUvixHKrP2Y4qCdpNkTXlPxR9GmrMDdxq7S9iXGR2X4E5W8IPEXLoPF65arluoipUo1VLCH0Ze8QGKIWQpR2QXTgqKOST7X53iVBVjM65ZV/oTt1RZrpGSWa4T/HHW8ASEeiRZcPFEZkYiLBV4dpRFpSYUyvKIpV6VcdoxwVaU7t02683udfpxLDmBSueTWUtliZj1SDqNy7muLlGXOBzNhHeLtd4iNNBYx2nrBISF5Qw6xtN68Rb7lDugGfg9/+olPvI5HQgjCkA0IZWEQ9Lp+oyFEgBxoGuGtVrh245O/U4yAI2HB4clBaTgmFxyNznBqzzilZ7CXmPolB6Xbu475rrWOs9MB1Cs7nVvuznXF/dWmWIspFIN43LLXTRW01uocaa3Xdx8veE/myvntVpdNZKfPP8aFxeXuBEfZXRU6CjqTYEDC+CxOyOSsG/q9M8qAnEHg9aAXB6zn+T/AucTbtxvE4QsiTTikmye7ekJpqnO168bdhOMsdgDGHYtdWpCvgbcGK4cv7WFl/dYedjqjhYS8Jae9p4Me2ys22NjKPme5FC/44QRvMgeAqBT/h0GxLfhtcP9F7/4vvf//9d7t7ZXaxvG/foayTMS8QKw2VG+evKCu4TMwrc7F8u5+/zt/G5kgTQzZw5lcI6pVsUlw1g5CL0j6A8YIDYkXdInHetT3J0C6E+h2vfX6YddoPwfEcd4+oOH1V4o8BfWtG2Cd3ZwhbdGmu5uTp520Du+e6rvFGzP4e3kvY3u1lgwabcU5NgitsfnFbuwa2GN3OHZFJmDstsZukRUV4irDmIHg6okytlqbcS6pLfc2hk1tTJeqzFRsCjEqs4x+FYlKK9j4Kb4RHtCRyn2jHJyRacluk6oXtAqn6Qrf2VdvbEK50m+3fHN/7Z1sf+3+Mt8pXsei6iFabJ747DuhIx/+BTGfitZDFwAA</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=0739d06d8323cf50bcab9780deaad3d6"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Send Email">c1806bf4a70323008299b39f087901cb</action_type>
+        <action_type_parent display_value="Send Email">98c181d20b100300d97d8bf637673ab5</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>c1806bf4a70323008299b39f087901cb</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</flow>
+        <generation_source/>
+        <order>3</order>
+        <parent_ui_id>8c14a71c-70f5-4059-b172-4727e08ba0d0</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 06:37:46</sys_created_on>
+        <sys_id>354a5ced8323cf50bcab9780deaad3f3</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-08 09:10:12</sys_updated_on>
+        <ui_id>fb43b4c0-c576-42b6-94fe-1dbd521fd950</ui_id>
+        <updation_source/>
+        <values>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</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=354a5ced8323cf50bcab9780deaad3f3"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Send Email">c1806bf4a70323008299b39f087901cb</action_type>
+        <action_type_parent display_value="Send Email">98c181d20b100300d97d8bf637673ab5</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>c1806bf4a70323008299b39f087901cb</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</flow>
+        <generation_source/>
+        <order>5</order>
+        <parent_ui_id>60bbac7f-4faa-4835-9e09-cca674b234e7</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:40:15</sys_created_on>
+        <sys_id>fed4c319837fcfd0bcab9780deaad3ac</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-08 09:10:12</sys_updated_on>
+        <ui_id>cde0fb9a-8f18-4e7a-bb57-b526014e91ce</ui_id>
+        <updation_source/>
+        <values>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</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=fed4c319837fcfd0bcab9780deaad3ac"/>
+    <sys_hub_sub_flow_instance_v2 action="delete_multiple" query="flow=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_hub_flow_logic_instance_v2 action="delete_multiple" query="flow=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT INb0b44fd5837fcfd0bcab9780deaad36e,e0f950ed8323cf50bcab9780deaad370"/>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">47950f59837fcfd0bcab9780deaad3d3</block>
+        <comment/>
+        <connected_to>8c14a71c-70f5-4059-b172-4727e08ba0d0</connected_to>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>4</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:39:33</sys_created_on>
+        <sys_id>b0b44fd5837fcfd0bcab9780deaad36e</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:11</sys_updated_on>
+        <ui_id>60bbac7f-4faa-4835-9e09-cca674b234e7</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">dd11642183a3cf50bcab9780deaad361</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 06:36:19</sys_created_on>
+        <sys_id>e0f950ed8323cf50bcab9780deaad370</sys_id>
+        <sys_mod_count>15</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:11</sys_updated_on>
+        <ui_id>8c14a71c-70f5-4059-b172-4727e08ba0d0</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1Uy27bMBD8lYJnWdDD8utmtAhQoG2AJsilDYQVSdlEKVIlqTiu4X/vUpQSI3bQosixN+0suTuznNWB6M61nbO3em2t2Ciy+nYfEaE8ht8HoqDhZEWoVkw4oVXZAxF5ANn5xLptjcYAISZsK2F/d56hWyGZ4UP1FgzWcNyQ1eFFyu1bXkqouMQCN84ItcHrgmFUJ1CnS5rSPJvlWZJki2lazfIqzVgOHHI8N158P5J996lHoldV+H6I27GTNszTSpOI8EfHFePYugZpeUQaUAycNvsnxHBg10o+A1uhHJYj/vCjFb+wdlYU/mDNUSPlIfkUlsPIAky3WlB+3XqCAXFQyeEO1bJr1Jegww+b19BJNw4bkc5iPd560p7FQKm+2erd17HhlVC9wCEpNcX3GSNwOIaqc9z6h+GSN1iobKBtcTilf0zRX0YuTbyRGMS11Dts6p0TA/XEY5wRxFeIf+jhOzDCq/iMZfByoFmBFbTsXYblnEEJx34s5c/OEwoCByllmAYesNSI1q2xzwMfWB+jc4ueuPNwyNg8m1e0mOSLnE6mrCgmizyvJ7CcsaqYT+siX8YwWLW0Dhw/Hr93SZKzgKIDzqz9VmXfYi+WUNRFmhSX92I6u7QXFzbi9WXI/rAM/vn+cheSJPm/DKfLIGwZTD1o65v/8y7ce+OHDjb4hnEqLBK59djH8a/uE3s0gKCn0E6bH17CM3b8DYJAAbIfBgAA</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT IN1d8264e183a3cf50bcab9780deaad3bd,518264e183a3cf50bcab9780deaad3bc,518264e183a3cf50bcab9780deaad3be,918264e183a3cf50bcab9780deaad3bd,aa858b59837fcfd0bcab9780deaad312,d58264e183a3cf50bcab9780deaad3bd,e2858b59837fcfd0bcab9780deaad313,e6858b59837fcfd0bcab9780deaad311"/>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.transaction_type}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:45</sys_created_on>
+        <sys_id>1d8264e183a3cf50bcab9780deaad3bd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:45</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>c96b7c2d-1b56-4550-9703-58ab11582e80</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.vin}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:45</sys_created_on>
+        <sys_id>518264e183a3cf50bcab9780deaad3bc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:45</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>a777c04a-957e-49aa-a745-59cc7328f672</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.from_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:45</sys_created_on>
+        <sys_id>518264e183a3cf50bcab9780deaad3be</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:45</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>a917fbd4-d63c-4336-ba7b-f8e60782ab14</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.to_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:45</sys_created_on>
+        <sys_id>918264e183a3cf50bcab9780deaad3bd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:45</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>42cc704a-eeee-4ccb-965a-609086e3d333</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.from_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:43:13</sys_created_on>
+        <sys_id>aa858b59837fcfd0bcab9780deaad312</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:43:13</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>2bbc05c7-c5fc-475d-aa67-a82b721ea15a</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:45</sys_created_on>
+        <sys_id>d58264e183a3cf50bcab9780deaad3bd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:45</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>8a249af3-97ba-4af5-8013-26a2c2ea336e</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.vin}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:43:13</sys_created_on>
+        <sys_id>e2858b59837fcfd0bcab9780deaad313</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:43:13</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>3736ea92-ed13-4881-9502-f740177c0e84</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>7cf8f3d5832f8f50bcab9780deaad364</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.to_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:43:13</sys_created_on>
+        <sys_id>e6858b59837fcfd0bcab9780deaad311</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:43:13</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>de59a8de-1853-46e7-b462-ca26b49feefc</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_flow_variable action="delete_multiple" query="model=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>table_name</element>
+        <help/>
+        <hint/>
+        <label>Table Name</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_7cf8f3d5832f8f50bcab9780deaad364</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:52</sys_created_on>
+        <sys_id>1f193fd5832f8f50bcab9780deaad3bb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 04:12:52</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>changed_fields</element>
+        <help/>
+        <hint/>
+        <label>Changed Fields</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_7cf8f3d5832f8f50bcab9780deaad364</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:52</sys_created_on>
+        <sys_id>53197fd5832f8f50bcab9780deaad312</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 04:12:52</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>current</element>
+        <help/>
+        <hint/>
+        <label>Record</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_7cf8f3d5832f8f50bcab9780deaad364</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 04:12:52</sys_created_on>
+        <sys_id>5b193fd5832f8f50bcab9780deaad3f9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 04:12:52</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_hub_flow_snapshot action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>true</active>
+        <allow_high_security_roles>false</allow_high_security_roles>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,viewActivatedIn=naturalLanguage</attributes>
+        <authored_on_release_version>29000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description/>
+        <flow_priority>MEDIUM</flow_priority>
+        <internal_name>inventory_transaction_approval_amp_notification</internal_name>
+        <label_cache>[{"name":"Created or Updated_1.current.assigned_approver","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛Assigned Approver","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"assigned_approver","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"Created or Updated_1.current.to_dealer","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛To Dealer","reference":"x_2190010_vinwar_0_dealer","reference_display":"Dealer","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"to_dealer","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record","dealer_name"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":[null]}},{"name":"Created or Updated_1.current.to_customer","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛To Customer","reference":"x_2190010_vinwar_0_customer_details","reference_display":"Customer Details","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"to_customer","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record"]}},{"name":"Created or Updated_1.current.from_dealer","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛From Dealer","reference":"x_2190010_vinwar_0_dealer","reference_display":"Dealer","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"from_dealer","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":[null]}},{"name":"Created or Updated_1.current.vin","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛VIN","reference":"x_2190010_vinwar_0_inventory","reference_display":"Inventory","type":"reference","base_type":"reference","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"vin","usedInstances":{"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":[null]}},{"name":"2d727bc5-383c-4d55-833f-a96db574f539.approval_state","label":"1 - Ask For Approval➛Approval State","reference_display":"Approval State","type":"choice","base_type":"choice","choices":[{"label":"-- None --","value":"","order":0.0},{"label":"Not Yet Requested","value":"not requested","order":1.0},{"label":"Requested","value":"requested","order":2.0},{"label":"Approved","value":"approved","order":3.0},{"label":"Rejected","value":"rejected","order":4.0},{"label":"Cancelled","value":"cancelled","order":5.0},{"label":"No Longer Required","value":"not_required","order":6.0},{"label":"Skipped","value":"skipped","order":7.0}],"usedInstances":{"8c14a71c-70f5-4059-b172-4727e08ba0d0":["condition"]},"attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"{{static.a8f98bb0eb32010045e1a5115206fe3a}}","label":"Abraham Lincoln","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"{{static.62826bf03710200044e0bfc8bcbe5df1}}","label":"Abel Tuter","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"{{static.6816f79cc0a8016401c5a33be04be441}}","label":"System Administrator","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["approval_conditions"]}},{"name":"Created or Updated_1.current","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record","reference":"x_2190010_vinwar_0_inventory_transaction_history","reference_display":"Inventory Transaction History","type":"reference","base_type":"reference","usedInstances":{"2d727bc5-383c-4d55-833f-a96db574f539":["record"],"fb43b4c0-c576-42b6-94fe-1dbd521fd950":["record",null],"e2ad9614-024c-4213-a4cc-6f9bc18ee24d":["record","dealer_name"],"cde0fb9a-8f18-4e7a-bb57-b526014e91ce":["record"]},"attributes":{}},{"name":"Created or Updated_1.current.transaction_type","label":"Trigger - Record Created or Updated➛Inventory Transaction History Record➛Transaction Type","reference":"","reference_display":"Transaction Type","type":"choice","base_type":"choice","parent_table_name":"x_2190010_vinwar_0_inventory_transaction_history","column_name":"transaction_type","choices":[{"label":"-- None --","sequence":-1.0,"selected":false,"used":false,"image":"","reference":false,"rawLabel":"-- None --","missing":false,"value":""},{"parameters":{"name":"x_2190010_vinwar_0_inventory_transaction_history","dependent_values":[""],"dependent_values_map":{"":"C2C"}},"sequence":0.0,"selected":false,"label":"C2C","used":false,"image":"","reference":false,"rawLabel":"C2C","missing":false,"value":"C2C"},{"parameters":{"name":"x_2190010_vinwar_0_inventory_transaction_history","dependent_values":[""],"dependent_values_map":{"":"D2D"}},"sequence":1.0,"selected":false,"label":"D2D","used":false,"image":"","reference":false,"rawLabel":"D2D","missing":false,"value":"D2D"}],"usedInstances":{"fb43b4c0-c576-42b6-94fe-1dbd521fd950":[null]}}]</label_cache>
+        <master>true</master>
+        <name>Inventory Transaction Approval &amp; Notification</name>
+        <natlang/>
+        <outputs/>
+        <parent_flow display_value="Inventory Transaction Approval &amp; Notification">7cf8f3d5832f8f50bcab9780deaad364</parent_flow>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <status>published</status>
+        <sys_class_name>sys_hub_flow_snapshot</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:47</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>658228e183a3cf50bcab9780deaad3d5</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name/>
+        <sys_overrides/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:15</sys_updated_on>
+        <type>flow</type>
+        <version>2</version>
+    </sys_hub_flow_snapshot>
+    <sys_translated_text action="delete_multiple" query="documentkey=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_variable_value action="delete_multiple" query="document_key=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=658228e183a3cf50bcab9780deaad3d5^sys_idNOT INa58228e183a3cf50bcab9780deaad3d6"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>658228e183a3cf50bcab9780deaad3d5</id>
+        <name>Inventory Transaction Approval &amp; Notification</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:47</sys_created_on>
+        <sys_id>a58228e183a3cf50bcab9780deaad3d6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:47</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=a58228e183a3cf50bcab9780deaad3d6"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=658228e183a3cf50bcab9780deaad3d5^sys_idNOT IN2d8228e183a3cf50bcab9780deaad3d7,718268e183a3cf50bcab9780deaad337,f18268e183a3cf50bcab9780deaad343"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=document_id</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent>table_name</dependent>
+        <dependent_on_field>table_name</dependent_on_field>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>current</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">document_id</internal_type>
+        <label>Record</label>
+        <mandatory>true</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</model>
+        <model_id>658228e183a3cf50bcab9780deaad3d5</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_input_658228e183a3cf50bcab9780deaad3d5</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:47</sys_created_on>
+        <sys_id>2d8228e183a3cf50bcab9780deaad3d7</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:14</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>true</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=2d8228e183a3cf50bcab9780deaad3d7"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>child_label=FDChangeDetails,child_name=FDChangeDetails,child_type=object,child_type_label=Object,co_type_name=FDCollection,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,pwd2droppable=true,uiType=array.object,uiTypeLabel=Array.Object</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>changed_fields</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Changed Fields</label>
+        <mandatory>false</mandatory>
+        <max_length>4000</max_length>
+        <model display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</model>
+        <model_id>658228e183a3cf50bcab9780deaad3d5</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_input_658228e183a3cf50bcab9780deaad3d5</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>718268e183a3cf50bcab9780deaad337</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:43:35</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=718268e183a3cf50bcab9780deaad337"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>table_name</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">table_name</internal_type>
+        <label>Table Name</label>
+        <mandatory>false</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</model>
+        <model_id>658228e183a3cf50bcab9780deaad3d5</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_input_658228e183a3cf50bcab9780deaad3d5</name>
+        <next_element/>
+        <order>101</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>f18268e183a3cf50bcab9780deaad343</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:14</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=f18268e183a3cf50bcab9780deaad343"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=658228e183a3cf50bcab9780deaad3d5^sys_idNOT INf58268e183a3cf50bcab9780deaad360"/>
+    <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</flow>
+        <generation_source/>
+        <name>Created or Updated</name>
+        <published_version/>
+        <remote_sys_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>f58268e183a3cf50bcab9780deaad360</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:14</sys_updated_on>
+        <trigger_definition display_value="Created or Updated">a45d9180c32222002841b63b12d3aea7</trigger_definition>
+        <trigger_inputs>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</trigger_inputs>
+        <trigger_outputs/>
+        <trigger_type>record_create_or_update</trigger_type>
+        <updation_source/>
+    </sys_hub_trigger_instance_v2>
+    <sys_hub_action_instance_v2 action="delete_multiple" query="flow=658228e183a3cf50bcab9780deaad3d5^sys_idNOT IN7d8268e183a3cf50bcab9780deaad35c,f18268e183a3cf50bcab9780deaad359,ff954f59837fcfd0bcab9780deaad3b2"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Send Email">c1806bf4a70323008299b39f087901cb</action_type>
+        <action_type_parent display_value="Send Email">98c181d20b100300d97d8bf637673ab5</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>c1806bf4a70323008299b39f087901cb</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</flow>
+        <generation_source/>
+        <order>3</order>
+        <parent_ui_id>8c14a71c-70f5-4059-b172-4727e08ba0d0</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>7d8268e183a3cf50bcab9780deaad35c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:46:42</sys_updated_on>
+        <ui_id>fb43b4c0-c576-42b6-94fe-1dbd521fd950</ui_id>
+        <updation_source/>
+        <values>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</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=7d8268e183a3cf50bcab9780deaad35c"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f8f2e9920b10030085c083eb37673abd</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>f18268e183a3cf50bcab9780deaad359</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:43:36</sys_updated_on>
+        <ui_id>2d727bc5-383c-4d55-833f-a96db574f539</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1YXW/iOBT9K1GeKesQCIG3qqjarnZnVv2Yl1JFxrkpHgWHsR1aFvHf9yZ2EgZaBnYYjbqdF4Sv73XOuTkndnK/cnnsDt1+mHRgMOiQiUeIT0jYYyT0YeL3g75PGXFbrqAzwEwJLJMxjhc0zYvAanUhgWqInUw6d/O4+Bt5bZZLCUKv15gaczVP6fKTrcAIm/I0xnl3eP/QcudU4uIapDtcbU0dii6lE0gx9bqCtw1XL+fFOM5YPkNcEa+Cf9rKkZ1xrkY4g0UFHNJy4VmDiAFxJDRV0HJnVCDJTC7doZY5BpB+/FGkyzpjyoU2PGf0WfF/8MJ+p8hLAIkx24N6GNn+mHAyopre4MpM57JuV8YZKNOSGBKap/piM2YSPs41z4Qp0XSSVtVZms/EB9MQt15g43bkCkHAvOBZIDe0kptp9nRdgbzkouyIpZhmjKb1iGot+STXBZyVCymULZ7R+ZyLx2guswUvixHKrP2Y4qCdpNkTXlPxR9GmrMDdxq7S9iXGR2X4E5W8IPEXLoPF65arluoipUo1VLCH0Ze8QGKIWQpR2QXTgqKOST7X53iVBVjM65ZV/oTt1RZrpGSWa4T/HHW8ASEeiRZcPFEZkYiLBV4dpRFpSYUyvKIpV6VcdoxwVaU7t02683udfpxLDmBSueTWUtliZj1SDqNy7muLlGXOBzNhHeLtd4iNNBYx2nrBISF5Qw6xtN68Rb7lDugGfg9/+olPvI5HQgjCkA0IZWEQ9Lp+oyFEgBxoGuGtVrh245O/U4yAI2HB4clBaTgmFxyNznBqzzilZ7CXmPolB6Xbu475rrWOs9MB1Cs7nVvuznXF/dWmWIspFIN43LLXTRW01uocaa3Xdx8veE/myvntVpdNZKfPP8aFxeXuBEfZXRU6CjqTYEDC+CxOyOSsG/q9M8qAnEHg9aAXB6zn+T/AucTbtxvE4QsiTTikmye7ekJpqnO168bdhOMsdgDGHYtdWpCvgbcGK4cv7WFl/dYedjqjhYS8Jae9p4Me2ys22NjKPme5FC/44QRvMgeAqBT/h0GxLfhtcP9F7/4vvf//9d7t7ZXaxvG/foayTMS8QKw2VG+evKCu4TMwrc7F8u5+/zt/G5kgTQzZw5lcI6pVsUlw1g5CL0j6A8YIDYkXdInHetT3J0C6E+h2vfX6YddoPwfEcd4+oOH1V4o8BfWtG2Cd3ZwhbdGmu5uTp520Du+e6rvFGzP4e3kvY3u1lgwabcU5NgitsfnFbuwa2GN3OHZFJmDstsZukRUV4irDmIHg6okytlqbcS6pLfc2hk1tTJeqzFRsCjEqs4x+FYlKK9j4Kb4RHtCRyn2jHJyRacluk6oXtAqn6Qrf2VdvbEK50m+3fHN/7Z1sf+3+Mt8pXsei6iFabJ747DuhIx/+BTGfitZDFwAA</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=f18268e183a3cf50bcab9780deaad359"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Send Email">c1806bf4a70323008299b39f087901cb</action_type>
+        <action_type_parent display_value="Send Email">98c181d20b100300d97d8bf637673ab5</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>c1806bf4a70323008299b39f087901cb</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</flow>
+        <generation_source/>
+        <order>5</order>
+        <parent_ui_id>60bbac7f-4faa-4835-9e09-cca674b234e7</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:43:35</sys_created_on>
+        <sys_id>ff954f59837fcfd0bcab9780deaad3b2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:43:35</sys_updated_on>
+        <ui_id>cde0fb9a-8f18-4e7a-bb57-b526014e91ce</ui_id>
+        <updation_source/>
+        <values>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</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=ff954f59837fcfd0bcab9780deaad3b2"/>
+    <sys_hub_sub_flow_instance_v2 action="delete_multiple" query="flow=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_hub_flow_logic_instance_v2 action="delete_multiple" query="flow=658228e183a3cf50bcab9780deaad3d5^sys_idNOT IN398268e183a3cf50bcab9780deaad356,73954f59837fcfd0bcab9780deaad3c4"/>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">dd11642183a3cf50bcab9780deaad361</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>398268e183a3cf50bcab9780deaad356</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:14</sys_updated_on>
+        <ui_id>8c14a71c-70f5-4059-b172-4727e08ba0d0</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1Vy27bMBD8lYJnWdDD8utmOAhQIG2AJsilDYQVScVEKVElqTiu4X/vUpRsI3bRBs2xN3OWu5wZ7cA7olrbtNbcq6Ux4qkmi6+PARG1w/D3jtRQcbIgVNVMWKHqvAMC8gyydYVl02iFB4SYMI2E7cN5ha6FZJr30xvQOMNyTRa7VyXBsLGMoIznNKZpMkmTKEpm47iYpEWcsBQ4pDhQQsElXl0NtD7cdEjwW7522zjcWC3qp/5800+5G0ClmWMVRwHhL5bXjCOfEqThAamgZmCV3h4QzYHd1vIIrEVtcRxxl1+M+IkPJlnmLpYcJVLui4dj3jvm4fIKLCCVltpW91fpWgnKjTeH8RJaaVenmL9w2zipvsVCIYduJduq/uwdIYcBwwdCpDVIgjdOqaPe6yjv1mrzZWB5LerOlb4oFcVvOpzAondFax2fHeGSVzgor6Bp0NHcLYDompFLFT5JPISlVBt81G1bCNQRD9FYCK8Rv+rgB9DCqfiEY7DZ0yzACJp3m4nj0CZO9gExW7OSYMxRJLqb/2gdRS+5F5d7f1wL1aKxS3z5mfc69sH5op/s+G6XsGkyLWg2SmcpHY1Zlo1maVqOYD5hRTYdl1k6D6Ff+NxYsHy//9ZGUco8iot0FpD3Gvu2dM0hK7M4yi6nazy5lK4LuXpjpJI/RMp9z79MVBRF/yP1z5ESJvdB6LV1j79joh5dfPybB6+pMEjt3mEfh38YV9jicgl6Cm2U/u5EHbH9L3Wb9J6rBgAA</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">47950f59837fcfd0bcab9780deaad3d3</block>
+        <comment/>
+        <connected_to>8c14a71c-70f5-4059-b172-4727e08ba0d0</connected_to>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Inventory Transaction Approval &amp; Notification">658228e183a3cf50bcab9780deaad3d5</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>4</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:43:35</sys_created_on>
+        <sys_id>73954f59837fcfd0bcab9780deaad3c4</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:14</sys_updated_on>
+        <ui_id>60bbac7f-4faa-4835-9e09-cca674b234e7</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=658228e183a3cf50bcab9780deaad3d5^sys_idNOT IN215687d9837fcfd0bcab9780deaad375,318268e183a3cf50bcab9780deaad361,7d8268e183a3cf50bcab9780deaad360,a15687d9837fcfd0bcab9780deaad376,b58268e183a3cf50bcab9780deaad361,b98268e183a3cf50bcab9780deaad360,e95687d9837fcfd0bcab9780deaad375,f18268e183a3cf50bcab9780deaad361"/>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.to_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:46:42</sys_created_on>
+        <sys_id>215687d9837fcfd0bcab9780deaad375</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:46:42</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>de59a8de-1853-46e7-b462-ca26b49feefc</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>318268e183a3cf50bcab9780deaad361</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>8a249af3-97ba-4af5-8013-26a2c2ea336e</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.to_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>7d8268e183a3cf50bcab9780deaad360</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>42cc704a-eeee-4ccb-965a-609086e3d333</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.vin}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:46:43</sys_created_on>
+        <sys_id>a15687d9837fcfd0bcab9780deaad376</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:46:43</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>3736ea92-ed13-4881-9502-f740177c0e84</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.from_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>b58268e183a3cf50bcab9780deaad361</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>a917fbd4-d63c-4336-ba7b-f8e60782ab14</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.vin}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>b98268e183a3cf50bcab9780deaad360</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>a777c04a-957e-49aa-a745-59cc7328f672</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.from_dealer}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-07 10:46:43</sys_created_on>
+        <sys_id>e95687d9837fcfd0bcab9780deaad375</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 10:46:43</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>2bbc05c7-c5fc-475d-aa67-a82b721ea15a</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_pill_compound action="INSERT_OR_UPDATE">
+        <attached_to>658228e183a3cf50bcab9780deaad3d5</attached_to>
+        <extra_info/>
+        <order>0</order>
+        <prescription>{{Created or Updated_1.current.transaction_type}}</prescription>
+        <source_ui_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>f18268e183a3cf50bcab9780deaad361</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <transform_compositions>[]</transform_compositions>
+        <transform_definition_id/>
+        <ui_id>c96b7c2d-1b56-4550-9703-58ab11582e80</ui_id>
+    </sys_hub_pill_compound>
+    <sys_hub_flow_variable action="delete_multiple" query="model=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>table_name</element>
+        <help/>
+        <hint/>
+        <label>Table Name</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_658228e183a3cf50bcab9780deaad3d5</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>b58268e183a3cf50bcab9780deaad34a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>current</element>
+        <help/>
+        <hint/>
+        <label>Record</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_658228e183a3cf50bcab9780deaad3d5</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>f98268e183a3cf50bcab9780deaad319</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>changed_fields</element>
+        <help/>
+        <hint/>
+        <label>Changed Fields</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_658228e183a3cf50bcab9780deaad3d5</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:48</sys_created_on>
+        <sys_id>f98268e183a3cf50bcab9780deaad33e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 07:13:48</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_hub_flow action="UPDATE">
+        <sys_id>7cf8f3d5832f8f50bcab9780deaad364</sys_id>
+        <latest_snapshot>658228e183a3cf50bcab9780deaad3d5</latest_snapshot>
+        <compiler_build>glide-australia-02-11-2026__patch3-05-25-2026_06-12-2026_1106.zip</compiler_build>
+        <version_record/>
+    </sys_hub_flow>
+    <sys_flow_trigger_plan action="delete_multiple" query="plan_id=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT IN0e8268e183a3cf50bcab9780deaad382"/>
+    <sys_flow_trigger_plan action="INSERT_OR_UPDATE">
+        <binding_strategy>com.snc.process_flow.engine.binding.OncePerRecord</binding_strategy>
+        <plan>{"@class":"com.snc.process_flow.engine.serialization.plan_data.ChunkingPlanData","chunk_data":{"table":"sys_flow_trigger_plan","id":"0e8268e183a3cf50bcab9780deaad382","name":"plan","plan_signature":null},"plan_data":"CHUNKING_PLAN"}</plan>
+        <plan_id>7cf8f3d5832f8f50bcab9780deaad364</plan_id>
+        <snapshot>e5d93fe983778314bcab9780deaad38c</snapshot>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 07:13:49</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>0e8268e183a3cf50bcab9780deaad382</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_overrides/>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-07 12:24:15</sys_updated_on>
+        <trigger display_value="">aaac53d983330314bcab9780deaad3d7</trigger>
+    </sys_flow_trigger_plan>
+    <sys_flow_subflow_plan action="delete_multiple" query="plan_id=7cf8f3d5832f8f50bcab9780deaad364"/>
+</record_update>

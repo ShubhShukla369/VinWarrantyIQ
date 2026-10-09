@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>1000</order>
+        <role display_value="x_2190010_vinwar_0.warranty_plan_user" name="x_2190010_vinwar_0.warranty_plan_user">38fce5c583334fd0bcab9780deaad3f8</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-06 09:37:41</sys_created_on>
+        <sys_id>f4fce5c583334fd0bcab9780deaad3fb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>38fce5c583334fd0bcab9780deaad3f8</sys_name>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name>sys_embedded_help_role_f4fce5c583334fd0bcab9780deaad3fb</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-06 09:37:41</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>

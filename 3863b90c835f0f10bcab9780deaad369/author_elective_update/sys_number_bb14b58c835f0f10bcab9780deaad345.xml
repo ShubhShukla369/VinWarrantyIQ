@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_number">
+    <sys_number action="DELETE">
+        <category display_value="" name="x_2190010_vinwar_0_inventory">x_2190010_vinwar_0_inventory</category>
+        <maximum_digits>7</maximum_digits>
+        <number>1000</number>
+        <prefix>INV</prefix>
+        <sys_class_name>sys_number</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-08 11:03:42</sys_created_on>
+        <sys_id>bb14b58c835f0f10bcab9780deaad345</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>INV</sys_name>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name>sys_number_bb14b58c835f0f10bcab9780deaad345</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-08 11:03:42</sys_updated_on>
+    </sys_number>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</application>
+        <file_path/>
+        <instance_id>c9872d401bfeb918fe1b43f4bd4bcbea</instance_id>
+        <instance_name>dev223307</instance_name>
+        <name>sys_number_bb14b58c835f0f10bcab9780deaad345</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_number"><sys_number action="INSERT_OR_UPDATE"><category display_value="" name="x_2190010_vinwar_0_inventory">x_2190010_vinwar_0_inventory</category><maximum_digits>7</maximum_digits><number>1000</number><prefix>INV</prefix><sys_class_name>sys_number</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-09-08 11:03:42</sys_created_on><sys_id>bb14b58c835f0f10bcab9780deaad345</sys_id><sys_mod_count>0</sys_mod_count><sys_name>INV</sys_name><sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package><sys_policy/><sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope><sys_update_name>sys_number_bb14b58c835f0f10bcab9780deaad345</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-09-08 11:03:42</sys_updated_on></sys_number></record_update>]]></payload>
+        <payload_hash>393109809</payload_hash>
+        <record_name>INV</record_name>
+        <reverted_from/>
+        <source>499eaa2283030310bcab9780deaad31d</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-09-03 23:28:13</sys_created_on>
+        <sys_id>c299b0258367cf50bcab9780deaad354</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>1a06999f6c80000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Number</type>
+        <update_guid>8299b025b367cf505b796c2f6f426754</update_guid>
+        <update_guid_history>8299b025b367cf505b796c2f6f426754:393109809</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-09-25 08:54:35</sys_created_on>
+        <sys_db_object display_value="" name="sys_number">sys_number</sys_db_object>
+        <sys_id>6aa84556438c483a9f8b60f1a127eda1</sys_id>
+        <sys_metadata>bb14b58c835f0f10bcab9780deaad345</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>INV</sys_name>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_parent display_value="Inventory">5714758c835f0f10bcab9780deaad3be</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_scope_delete display_value="">15972eb1398c4a52b5ab2d868c767269</sys_scope_delete>
+        <sys_update_name>sys_number_bb14b58c835f0f10bcab9780deaad345</sys_update_name>
+        <sys_update_version display_value="sys_number_bb14b58c835f0f10bcab9780deaad345">c299b0258367cf50bcab9780deaad354</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-09-25 08:54:35</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

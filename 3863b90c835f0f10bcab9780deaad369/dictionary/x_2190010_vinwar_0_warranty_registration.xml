@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="fff1798183734fd0bcab9780deaad38d" label="Warranty Registration" max_length="40" name="x_2190010_vinwar_0_warranty_registration" type="collection">
+        <element label="Number" max_length="40" name="number" type="string"/>
+        <element label="Warranty End Date" max_length="40" name="warranty_end_date" type="glide_date"/>
+        <element label="Deductible Amount" max_length="40" name="deductible_amount" type="currency"/>
+        <element label="Delivery Date" max_length="40" name="delivery_date" type="glide_date"/>
+        <element label="Owner Email" max_length="40" name="owner_email" type="string"/>
+        <element label="City" max_length="40" name="city" type="string"/>
+        <element label="Customer" max_length="40" name="customer" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
+        <element label="Term (Months)" max_length="40" name="term_months" type="integer"/>
+        <element label="Street Address" max_length="40" name="street_address" type="string"/>
+        <element label="Invoice Number" max_length="40" name="invoice_number" type="string"/>
+        <element label="Colour" max_length="40" name="colour" type="string"/>
+        <element label="Warranty Start Date" max_length="40" name="warranty_start_date" type="glide_date"/>
+        <element choice="1" label="Registeration Status" max_length="40" name="registeration_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Submitted" value="submitted"/>
+                <element inactive_on_update="false" label="Rejected" value="rejected"/>
+                <element inactive_on_update="false" label="Draft" value="draft"/>
+                <element inactive_on_update="false" label="Active" value="active"/>
+                <element inactive_on_update="false" label="Under Review" value="under_review"/>
+            </choice>
+        </element>
+        <element label="ID Type" max_length="40" name="id_type" type="string"/>
+        <element label="Terms Accepted" max_length="40" name="terms_accepted" type="boolean"/>
+        <element label="State" max_length="40" name="state" type="string"/>
+        <element label="Pin Code" max_length="40" name="pin_code" type="string"/>
+        <element label="Registration Number" max_length="40" name="registration_number" type="string"/>
+        <element label="Ododmeter at Registeration" max_length="40" name="ododmeter_at_registeration" type="integer"/>
+        <element label="Warranty Plan" max_length="40" name="warranty_plan" reference="x_2190010_vinwar_0_warranty_plan" type="reference"/>
+        <element label="ID Number" max_length="40" name="id_number" type="string"/>
+        <element label="VIN" max_length="40" name="vin" reference="x_2190010_vinwar_0_inventory" type="reference"/>
+        <element label="Coverage Mileage Limit" max_length="40" name="coverage_mileage_limit" type="integer"/>
+        <element label="Owner Mobile" max_length="40" name="owner_mobile" type="string"/>
+        <element choice="1" label="Warranty Type" max_length="40" name="warranty_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Certified Pre-Owned" value="certified_pre_owned"/>
+                <element inactive_on_update="false" label="Bumper-to-Bumper" value="bumper_to_bumper"/>
+                <element inactive_on_update="false" label="Extended Care" value="extended_care"/>
+                <element inactive_on_update="false" label="Powertrain" value="powertrain"/>
+                <element inactive_on_update="false" label="Emissions" value="emissions"/>
+                <element inactive_on_update="false" label="Standard" value="standard"/>
+            </choice>
+        </element>
+    </element>
+</database>

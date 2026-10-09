@@ -9,7 +9,7 @@
                 <element inactive_on_update="false" label="Completed" value="completed"/>
             </choice>
         </element>
-        <element label="VIN" max_length="40" name="vin" reference="x_2190010_vinwar_0_inventory" type="reference"/>
+        <element display="true" label="VIN" max_length="40" name="vin" read_only="true" read_only_option="display_read_only" reference="x_2190010_vinwar_0_inventory" type="reference"/>
         <element label="Odometer at transfer" max_length="40" name="odometer_at_transfer" type="integer"/>
         <element choice="1" label="Transaction Type" mandatory="true" max_length="40" name="transaction_type" read_only="true" read_only_option="display_read_only" type="choice">
             <choice>
@@ -18,12 +18,12 @@
             </choice>
         </element>
         <element label="Transaction Date" max_length="40" name="transaction_date" type="glide_date"/>
-        <element label="From Customer" max_length="40" name="from_customer" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
+        <element label="From Customer " max_length="40" name="from_customer" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
         <element label="To Customer" max_length="40" name="to_customer" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
-        <element label="Transfer Request Date" max_length="40" name="transfer_request_date" type="glide_date"/>
+        <element default="javascript:gs.now()" dynamic_default_value="fb7553e85f220100a9ad2572f2b477b4" label="Transfer Request Date" max_length="40" name="transfer_request_date" read_only="true" read_only_option="display_read_only" type="glide_date" use_dynamic_default="true"/>
         <element label="Assigned Approver" max_length="40" name="assigned_approver" reference="sys_user" type="reference"/>
         <element label="Notes" max_length="40" name="notes" type="string_full_utf8"/>
-        <element choice="1" label="Approval Status" max_length="40" name="approval_status" type="choice">
+        <element choice="1" default="Draft" label="Approval Status" max_length="40" name="approval_status" read_only="true" read_only_option="display_read_only" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Approved" value="approved"/>
                 <element inactive_on_update="false" label="No Longer Required" value="no_longer_required"/>
@@ -34,7 +34,7 @@
                 <element inactive_on_update="false" label="Requested" value="requested"/>
             </choice>
         </element>
-        <element default="javascript:gs.now()" dynamic_default_value="fb7553e85f220100a9ad2572f2b477b4" label="Requested Delivery Date" max_length="40" name="requested_delivery_date" type="glide_date" use_dynamic_default="true"/>
+        <element default="javascript:gs.now()" dynamic_default_value="fb7553e85f220100a9ad2572f2b477b4" label="Requested Delivery Date" max_length="40" name="requested_delivery_date" read_only="true" read_only_option="display_read_only" type="glide_date" use_dynamic_default="true"/>
         <element label="To Dealer" max_length="40" name="to_dealer" reference="x_2190010_vinwar_0_dealer" type="reference"/>
     </element>
 </database>

@@ -5,7 +5,7 @@
         <attributes/>
         <audit>false</audit>
         <calculation/>
-        <choice>0</choice>
+        <choice/>
         <choice_field/>
         <choice_table/>
         <column_label>Dealer Allocation ID</column_label>
@@ -54,7 +54,7 @@
         <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
         <sys_update_name>sys_dictionary_x_2190010_vinwar_0_inventory_dealer_allocation_id</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-09-08 11:22:17</sys_updated_on>
+        <sys_updated_on>2026-09-29 08:53:22</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
