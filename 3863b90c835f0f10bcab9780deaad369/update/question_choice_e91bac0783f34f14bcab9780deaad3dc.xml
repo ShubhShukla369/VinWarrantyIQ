@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="question_choice">
+    <question_choice action="INSERT_OR_UPDATE">
+        <inactive>false</inactive>
+        <order>1</order>
+        <published_ref/>
+        <question display_value="Power Windows &amp; Locks">16eae40783f34f14bcab9780deaad3a3</question>
+        <sys_class_name>question_choice</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-10-12 09:57:54</sys_created_on>
+        <sys_id>e91bac0783f34f14bcab9780deaad3dc</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>All Working</sys_name>
+        <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
+        <sys_update_name>question_choice_e91bac0783f34f14bcab9780deaad3dc</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-10-12 09:58:44</sys_updated_on>
+        <text>All Working</text>
+        <value>all_working</value>
+    </question_choice>
+    <fx_price action="delete_multiple" query="id=e91bac0783f34f14bcab9780deaad3dc"/>
+</record_update>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="2d190bcc831b4f10bcab9780deaad303" extends="task" label="Inventory Transaction History" max_length="40" name="x_2190010_vinwar_0_inventory_transaction_history" type="collection">
-        <element label="From Dealer" max_length="40" name="from_dealer" reference="x_2190010_vinwar_0_dealer" type="reference"/>
+        <element label="From Dealer" max_length="40" name="from_dealer" read_only="true" read_only_option="display_read_only" reference="x_2190010_vinwar_0_dealer" type="reference"/>
         <element choice="1" label="Transaction Status" max_length="40" name="transaction_status" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Approved" value="approved"/>
@@ -18,7 +18,7 @@
             </choice>
         </element>
         <element label="Transaction Date" max_length="40" name="transaction_date" type="glide_date"/>
-        <element label="From Customer " max_length="40" name="from_customer" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
+        <element label="From Customer " max_length="40" name="from_customer" read_only="true" read_only_option="display_read_only" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
         <element label="To Customer" max_length="40" name="to_customer" reference="x_2190010_vinwar_0_customer_details" type="reference"/>
         <element default="javascript:gs.now()" dynamic_default_value="fb7553e85f220100a9ad2572f2b477b4" label="Transfer Request Date" max_length="40" name="transfer_request_date" read_only="true" read_only_option="display_read_only" type="glide_date" use_dynamic_default="true"/>
         <element label="Assigned Approver" max_length="40" name="assigned_approver" reference="sys_user" type="reference"/>

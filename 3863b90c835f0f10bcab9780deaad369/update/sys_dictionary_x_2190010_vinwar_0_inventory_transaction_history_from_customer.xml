@@ -38,8 +38,8 @@
         <name>x_2190010_vinwar_0_inventory_transaction_history</name>
         <next_element/>
         <primary>false</primary>
-        <read_only>false</read_only>
-        <read_only_option/>
+        <read_only>true</read_only>
+        <read_only_option>display_read_only</read_only_option>
         <read_roles/>
         <reference display_value="" name="x_2190010_vinwar_0_customer_details">x_2190010_vinwar_0_customer_details</reference>
         <reference_cascade_rule/>
@@ -59,7 +59,7 @@
         <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
         <sys_update_name>sys_dictionary_x_2190010_vinwar_0_inventory_transaction_history_from_customer</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-07 06:52:33</sys_updated_on>
+        <sys_updated_on>2026-10-09 09:54:39</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
