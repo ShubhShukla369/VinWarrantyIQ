@@ -657,6 +657,7 @@
         <ui_id>de59a8de-1853-46e7-b462-ca26b49feefc</ui_id>
     </sys_hub_pill_compound>
     <sys_hub_flow_variable action="delete_multiple" query="model=7cf8f3d5832f8f50bcab9780deaad364"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_variable_7cf8f3d5832f8f50bcab9780deaad364"/>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>table_name</element>
         <help/>
@@ -1335,6 +1336,7 @@
         <ui_id>c96b7c2d-1b56-4550-9703-58ab11582e80</ui_id>
     </sys_hub_pill_compound>
     <sys_hub_flow_variable action="delete_multiple" query="model=658228e183a3cf50bcab9780deaad3d5"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_variable_658228e183a3cf50bcab9780deaad3d5"/>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>table_name</element>
         <help/>
@@ -1409,7 +1411,7 @@
     <sys_hub_flow action="UPDATE">
         <sys_id>7cf8f3d5832f8f50bcab9780deaad364</sys_id>
         <latest_snapshot>658228e183a3cf50bcab9780deaad3d5</latest_snapshot>
-        <compiler_build>glide-australia-02-11-2026__patch3-05-25-2026_06-12-2026_1106.zip</compiler_build>
+        <compiler_build>glide-australia-02-11-2026__patch7-09-17-2026_10-06-2026_0905.zip</compiler_build>
         <version_record/>
     </sys_hub_flow>
     <sys_flow_trigger_plan action="delete_multiple" query="plan_id=7cf8f3d5832f8f50bcab9780deaad364^sys_idNOT IN0e8268e183a3cf50bcab9780deaad382"/>
@@ -1417,7 +1419,7 @@
         <binding_strategy>com.snc.process_flow.engine.binding.OncePerRecord</binding_strategy>
         <plan>{"@class":"com.snc.process_flow.engine.serialization.plan_data.ChunkingPlanData","chunk_data":{"table":"sys_flow_trigger_plan","id":"0e8268e183a3cf50bcab9780deaad382","name":"plan","plan_signature":null},"plan_data":"CHUNKING_PLAN"}</plan>
         <plan_id>7cf8f3d5832f8f50bcab9780deaad364</plan_id>
-        <snapshot>e5d93fe983778314bcab9780deaad38c</snapshot>
+        <snapshot>c0479d8583849310bcab9780deaad34a</snapshot>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-09-25 07:13:49</sys_created_on>
         <sys_domain>global</sys_domain>

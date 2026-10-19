@@ -24,6 +24,7 @@
         <scope>x_2190010_vinwar_0</scope>
         <scoped_administration>false</scoped_administration>
         <short_description>Automobile Inventory, Warranty and Claims management</short_description>
+        <sn_managed>false</sn_managed>
         <source>x_2190010_vinwar_0</source>
         <store_correlation_id/>
         <store_url/>

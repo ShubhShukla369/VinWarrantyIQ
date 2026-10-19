@@ -286,6 +286,7 @@
         <ui_id>006ce5f5-d69d-4f8a-a712-c31efa284c05</ui_id>
     </sys_hub_pill_compound>
     <sys_hub_flow_variable action="delete_multiple" query="model=8581bd5383bfcf14bcab9780deaad368"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_variable_8581bd5383bfcf14bcab9780deaad368"/>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>current</element>
         <help/>

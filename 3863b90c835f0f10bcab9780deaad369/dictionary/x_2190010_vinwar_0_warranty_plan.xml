@@ -5,7 +5,7 @@
         <element label="Plan Name" max_length="40" name="plan_name" type="string"/>
         <element label="Coverage Mileage Limit" max_length="40" name="coverage_mileage_limit" type="string"/>
         <element label="Renewable" max_length="40" name="renewable" type="boolean"/>
-        <element label="Description" max_length="40" name="description" type="string_full_utf8"/>
+        <element label="Description" max_length="251" name="description" type="string_full_utf8"/>
         <element label="Applicable Model Years" max_length="40" name="applicable_model_years" type="string"/>
         <element choice="1" label="Status" max_length="40" name="status" type="choice">
             <choice>

@@ -1318,6 +1318,10 @@ a.sn-btn{&#13;
   data.v = {};
   data.o = {};
   data.plans = [];
+	
+
+
+   
 
   // 1) Inventory + Customer  (URL: ?id=warranty_reg&inv=<sys_id>)
   var invId = $sp.getParameter('inv') || (input && input.form && input.form.inv) || '';
@@ -1353,6 +1357,8 @@ a.sn-btn{&#13;
       };
     }
   }
+	
+
 
   // 2) Plans: active + date range + vehicle ki Make aur Model Year se match
   if (data.v.inv) {
@@ -1391,6 +1397,7 @@ a.sn-btn{&#13;
     }
     data.plans.sort(function (a, b) { return a.price - b.price; });
   }
+	
 
   // 3) Submit -> ek Warranty Registration record banao
   if (input && input.action == 'submit') {
@@ -1448,14 +1455,14 @@ a.sn-btn{&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-10-06 11:14:39</sys_created_on>
         <sys_id>112382c583f34fd0bcab9780deaad3d2</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Warranty Registration Wizard</sys_name>
         <sys_package display_value="VinWarrantyIQ" source="x_2190010_vinwar_0">3863b90c835f0f10bcab9780deaad369</sys_package>
         <sys_policy/>
         <sys_scope display_value="VinWarrantyIQ">3863b90c835f0f10bcab9780deaad369</sys_scope>
         <sys_update_name>sp_widget_112382c583f34fd0bcab9780deaad3d2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-10-09 05:55:12</sys_updated_on>
+        <sys_updated_on>2026-10-19 05:01:19</sys_updated_on>
         <template><![CDATA[<div class="sn-chrome" ng-if="c.v.inv && !c.done">
 
   <!-- HEADER -->
@@ -1807,11 +1814,16 @@ a.sn-btn{&#13;
                 ng-class="{selected: c.f.plan == p.id}"
               >
 
-                <input type="radio" ng-model="c.f.plan" ng-value="p.id">
+                <input
+                  type="radio"
+                  ng-model="c.f.plan"
+                  ng-value="p.id"
+                >
 
                 <div class="wc-info">
 
                   <div class="wc-name">{{p.name}}</div>
+
                   <div class="wc-desc">{{p.desc}}</div>
 
                   <div class="wc-meta">
@@ -1832,7 +1844,9 @@ a.sn-btn{&#13;
 
                 </div>
 
-                <div class="wc-price">{{p.price | currency:c.data.cur:0}}</div>
+                <div class="wc-price">
+                  {{p.price | currency:c.data.cur:0}}
+                </div>
 
               </label>
 
@@ -1841,6 +1855,7 @@ a.sn-btn{&#13;
           </div>
 
         </div>
+        <!-- STEP 3 END -->
 
 
         <!-- ================================================= -->
@@ -1904,6 +1919,7 @@ a.sn-btn{&#13;
           </div>
 
         </div>
+        <!-- STEP 4 END -->
 
 
         <!-- ================================================= -->
@@ -2065,6 +2081,7 @@ a.sn-btn{&#13;
           </div>
 
         </div>
+        <!-- STEP 5 END -->
 
       </div>
 
